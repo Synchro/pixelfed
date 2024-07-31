@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\User;
+use App\Jobs\CuratedOnboarding\CuratedOnboardingNotifyAdminNewApplicationPipeline;
+use App\Mail\CuratedRegisterConfirmEmail;
 use App\Models\CuratedRegister;
 use App\Models\CuratedRegisterActivity;
 use App\Services\EmailService;
-use App\Services\BouncerService;
 use App\Util\Lexer\RestrictedNames;
-use App\Mail\CuratedRegisterConfirmEmail;
-use App\Mail\CuratedRegisterNotifyAdmin;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Jobs\CuratedOnboarding\CuratedOnboardingNotifyAdminNewApplicationPipeline;
+use Illuminate\Support\Str;
 
 class CuratedRegisterController extends Controller
 {
@@ -21,7 +18,7 @@ class CuratedRegisterController extends Controller
     {
         abort_unless((bool) config_cache('instance.curated_registration.enabled'), 404);
 
-        if((bool) config_cache('pixelfed.open_registration')) {
+        if ((bool) config_cache('pixelfed.open_registration')) {
             abort_if(config('instance.curated_registration.state.only_enabled_on_closed_reg'), 404);
         } else {
             abort_unless(config('instance.curated_registration.state.fallback_on_closed_reg'), 404);
@@ -31,6 +28,7 @@ class CuratedRegisterController extends Controller
     public function index(Request $request)
     {
         abort_if($request->user(), 404);
+
         return view('auth.curated-register.index', ['step' => 1]);
     }
 
@@ -40,6 +38,7 @@ class CuratedRegisterController extends Controller
         $emailConfirmed = $request->session()->has('cur-reg-con.email-confirmed') &&
             $request->has('next') &&
             $request->session()->has('cur-reg-con.cr-id');
+
         return view('auth.curated-register.concierge', compact('emailConfirmed'));
     }
 
@@ -58,12 +57,13 @@ class CuratedRegisterController extends Controller
         $crid = $request->session()->get('cur-reg-con.cr-id');
         $arid = $request->session()->get('cur-reg-con.ac-id');
         $showCaptcha = config('instance.curated_registration.captcha_enabled');
-        if($attempts = $request->session()->get('cur-reg-con-attempt')) {
+        if ($attempts = $request->session()->get('cur-reg-con-attempt')) {
             $showCaptcha = $attempts && $attempts >= 2;
         } else {
             $showCaptcha = false;
         }
         $activity = CuratedRegisterActivity::whereRegisterId($crid)->whereFromAdmin(true)->findOrFail($arid);
+
         return view('auth.curated-register.concierge_form', compact('activity', 'showCaptcha'));
     }
 
@@ -80,9 +80,9 @@ class CuratedRegisterController extends Controller
         $rules = [
             'response' => 'required|string|min:5|max:1000',
             'crid' => 'required|integer|min:1',
-            'acid' => 'required|integer|min:1'
+            'acid' => 'required|integer|min:1',
         ];
-        if(config('instance.curated_registration.captcha_enabled') && $attempts >= 3) {
+        if (config('instance.curated_registration.captcha_enabled') && $attempts >= 3) {
             $rules['h-captcha-response'] = 'required|captcha';
             $messages['h-captcha-response.required'] = 'The captcha must be filled';
         }
@@ -92,7 +92,7 @@ class CuratedRegisterController extends Controller
         abort_if((string) $crid !== $request->input('crid'), 404);
         abort_if((string) $acid !== $request->input('acid'), 404);
 
-        if(CuratedRegisterActivity::whereRegisterId($crid)->whereReplyToId($acid)->exists()) {
+        if (CuratedRegisterActivity::whereRegisterId($crid)->whereReplyToId($acid)->exists()) {
             return redirect()->back()->withErrors(['code' => 'You already replied to this request.']);
         }
 
@@ -124,7 +124,7 @@ class CuratedRegisterController extends Controller
             'response' => 'required_if:action,message|string|min:20|max:1000',
         ];
         $messages = [];
-        if(config('instance.curated_registration.captcha_enabled')) {
+        if (config('instance.curated_registration.captcha_enabled')) {
             $rules['h-captcha-response'] = 'required|captcha';
             $messages['h-captcha-response.required'] = 'The captcha must be filled';
         }
@@ -139,11 +139,11 @@ class CuratedRegisterController extends Controller
         $cr = CuratedRegister::whereIsClosed(false)->findOrFail($sid);
         $ac = CuratedRegisterActivity::whereRegisterId($cr->id)->whereFromAdmin(true)->findOrFail($id);
 
-        if(!hash_equals($ac->secret_code, $code)) {
+        if (! hash_equals($ac->secret_code, $code)) {
             return redirect()->back()->withErrors(['code' => 'Invalid code']);
         }
 
-        if(!hash_equals($cr->email, $email)) {
+        if (! hash_equals($cr->email, $email)) {
             return redirect()->back()->withErrors(['email' => 'Invalid email']);
         }
 
@@ -151,22 +151,25 @@ class CuratedRegisterController extends Controller
         $request->session()->put('cur-reg-con.cr-id', $cr->id);
         $request->session()->put('cur-reg-con.ac-id', $ac->id);
         $emailConfirmed = true;
+
         return redirect('/auth/sign_up/concierge/form');
     }
 
     public function confirmEmail(Request $request)
     {
-        if($request->user()) {
+        if ($request->user()) {
             return redirect(route('help.email-confirmation-issues'));
         }
+
         return view('auth.curated-register.confirm_email');
     }
 
     public function emailConfirmed(Request $request)
     {
-        if($request->user()) {
+        if ($request->user()) {
             return redirect(route('help.email-confirmation-issues'));
         }
+
         return view('auth.curated-register.email_confirmed');
     }
 
@@ -183,12 +186,12 @@ class CuratedRegisterController extends Controller
                 'string',
                 app()->environment() === 'production' ? 'email:rfc,dns,spoof' : 'email',
                 'exists:curated_registers',
-            ]
+            ],
         ];
 
         $messages = [];
 
-        if(config('instance.curated_registration.captcha_enabled')) {
+        if (config('instance.curated_registration.captcha_enabled')) {
             $rules['h-captcha-response'] = 'required|captcha';
             $messages['h-captcha-response.required'] = 'The captcha must be filled';
         }
@@ -196,7 +199,7 @@ class CuratedRegisterController extends Controller
         $this->validate($request, $rules, $messages);
 
         $cur = CuratedRegister::whereEmail($request->input('email'))->whereIsClosed(false)->first();
-        if(!$cur) {
+        if (! $cur) {
             return redirect()->back()->withErrors(['email' => 'The selected email is invalid.']);
         }
 
@@ -204,7 +207,7 @@ class CuratedRegisterController extends Controller
             ->whereType('user_resend_email_confirmation')
             ->count();
 
-        if($totalCount && $totalCount >= config('instance.curated_registration.resend_confirmation_limit')) {
+        if ($totalCount && $totalCount >= config('instance.curated_registration.resend_confirmation_limit')) {
             return redirect()->back()->withErrors(['email' => 'You have re-attempted too many times. To proceed with your application, please <a href="/site/contact" class="text-white" style="text-decoration: underline;">contact the admin team</a>.']);
         }
 
@@ -213,7 +216,7 @@ class CuratedRegisterController extends Controller
             ->where('created_at', '>', now()->subHours(12))
             ->count();
 
-        if($count) {
+        if ($count) {
             return redirect()->back()->withErrors(['email' => 'You can only re-send the confirmation email once per 12 hours. Try again later.']);
         }
 
@@ -227,7 +230,9 @@ class CuratedRegisterController extends Controller
         ]);
 
         Mail::to($cur->email)->send(new CuratedRegisterConfirmEmail($cur));
+
         return view('auth.curated-register.resent-confirmation');
+
         return $request->all();
     }
 
@@ -235,10 +240,10 @@ class CuratedRegisterController extends Controller
     {
         $rules = [
             'sid' => 'required',
-            'code' => 'required'
+            'code' => 'required',
         ];
         $messages = [];
-        if(config('instance.curated_registration.captcha_enabled')) {
+        if (config('instance.curated_registration.captcha_enabled')) {
             $rules['h-captcha-response'] = 'required|captcha';
             $messages['h-captcha-response.required'] = 'The captcha must be filled';
         }
@@ -247,41 +252,44 @@ class CuratedRegisterController extends Controller
         $cr = CuratedRegister::whereNull('email_verified_at')
             ->where('created_at', '>', now()->subHours(24))
             ->find($request->input('sid'));
-        if(!$cr) {
+        if (! $cr) {
             return redirect(route('help.email-confirmation-issues'));
         }
-        if(!hash_equals($cr->verify_code, $request->input('code'))) {
+        if (! hash_equals($cr->verify_code, $request->input('code'))) {
             return redirect(route('help.email-confirmation-issues'));
         }
         $cr->email_verified_at = now();
         $cr->save();
 
-        if(config('instance.curated_registration.notify.admin.on_verify_email.enabled')) {
+        if (config('instance.curated_registration.notify.admin.on_verify_email.enabled')) {
             CuratedOnboardingNotifyAdminNewApplicationPipeline::dispatch($cr);
         }
+
         return view('auth.curated-register.email_confirmed');
     }
 
     public function proceed(Request $request)
     {
         $this->validate($request, [
-            'step' => 'required|integer|in:1,2,3,4'
+            'step' => 'required|integer|in:1,2,3,4',
         ]);
         $step = $request->input('step');
 
-        switch($step) {
+        switch ($step) {
             case 1:
                 $step = 2;
                 $request->session()->put('cur-step', 1);
+
                 return view('auth.curated-register.index', compact('step'));
-            break;
+                break;
 
             case 2:
                 $this->stepTwo($request);
                 $step = 3;
                 $request->session()->put('cur-step', 2);
+
                 return view('auth.curated-register.index', compact('step'));
-            break;
+                break;
 
             case 3:
                 $this->stepThree($request);
@@ -289,20 +297,21 @@ class CuratedRegisterController extends Controller
                 $request->session()->put('cur-step', 3);
                 $verifiedEmail = true;
                 $request->session()->pull('cur-reg');
+
                 return view('auth.curated-register.index', compact('step', 'verifiedEmail'));
-            break;
+                break;
         }
     }
 
     protected function stepTwo($request)
     {
-        if($request->filled('reason')) {
+        if ($request->filled('reason')) {
             $request->session()->put('cur-reg.form-reason', $request->input('reason'));
         }
-        if($request->filled('username')) {
+        if ($request->filled('username')) {
             $request->session()->put('cur-reg.form-username', $request->input('username'));
         }
-        if($request->filled('email')) {
+        if ($request->filled('email')) {
             $request->session()->put('cur-reg.form-email', $request->input('email'));
         }
         $this->validate($request, [
@@ -317,24 +326,24 @@ class CuratedRegisterController extends Controller
                     $underscore = substr_count($value, '_');
                     $period = substr_count($value, '.');
 
-                    if(ends_with($value, ['.php', '.js', '.css'])) {
+                    if (ends_with($value, ['.php', '.js', '.css'])) {
                         return $fail('Username is invalid.');
                     }
 
-                    if(($dash + $underscore + $period) > 1) {
+                    if (($dash + $underscore + $period) > 1) {
                         return $fail('Username is invalid. Can only contain one dash (-), period (.) or underscore (_).');
                     }
 
-                    if (!ctype_alnum($value[0])) {
+                    if (! ctype_alnum($value[0])) {
                         return $fail('Username is invalid. Must start with a letter or number.');
                     }
 
-                    if (!ctype_alnum($value[strlen($value) - 1])) {
+                    if (! ctype_alnum($value[strlen($value) - 1])) {
                         return $fail('Username is invalid. Must end with a letter or number.');
                     }
 
                     $val = str_replace(['_', '.', '-'], '', $value);
-                    if(!ctype_alnum($val)) {
+                    if (! ctype_alnum($val)) {
                         return $fail('Username is invalid. Username must be alpha-numeric and may contain dashes (-), periods (.) and underscores (_).');
                     }
 
@@ -353,7 +362,7 @@ class CuratedRegisterController extends Controller
                 'unique:curated_registers',
                 function ($attribute, $value, $fail) {
                     $banned = EmailService::isBanned($value);
-                    if($banned) {
+                    if ($banned) {
                         return $fail('Email is invalid.');
                     }
                 },
@@ -361,7 +370,7 @@ class CuratedRegisterController extends Controller
             'password' => 'required|min:8',
             'password_confirmation' => 'required|same:password',
             'reason' => 'required|min:20|max:1000',
-            'agree' => 'required|accepted'
+            'agree' => 'required|accepted',
         ]);
         $request->session()->put('cur-reg.form-email', $request->input('email'));
         $request->session()->put('cur-reg.form-password', $request->input('password'));
@@ -379,11 +388,11 @@ class CuratedRegisterController extends Controller
                 'unique:curated_registers',
                 function ($attribute, $value, $fail) {
                     $banned = EmailService::isBanned($value);
-                    if($banned) {
+                    if ($banned) {
                         return $fail('Email is invalid.');
                     }
                 },
-            ]
+            ],
         ]);
         $cr = new CuratedRegister;
         $cr->email = $request->email;

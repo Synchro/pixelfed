@@ -3,15 +3,14 @@
 namespace App\Jobs\GroupsPipeline;
 
 use App\Models\GroupMedia;
-use App\Util\Media\Image;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Image as Intervention;
 use Log;
 use Storage;
-use Image as Intervention;
 
 class ImageResizePipeline implements ShouldQueue
 {
@@ -25,7 +24,7 @@ class ImageResizePipeline implements ShouldQueue
      * @var bool
      */
     public $deleteWhenMissingModels = true;
-    
+
     /**
      * Create a new job instance.
      *
@@ -45,29 +44,29 @@ class ImageResizePipeline implements ShouldQueue
     {
         $media = $this->media;
 
-        if(!$media) {
+        if (! $media) {
             return;
         }
 
-        if (!Storage::exists($media->media_path) || $media->skip_optimize) {
+        if (! Storage::exists($media->media_path) || $media->skip_optimize) {
             return;
         }
 
         $path = $media->media_path;
-        $file = storage_path('app/' . $path);
+        $file = storage_path('app/'.$path);
         $quality = config_cache('pixelfed.image_quality');
 
         $orientations = [
             'square' => [
-                'width'  => 1080,
+                'width' => 1080,
                 'height' => 1080,
             ],
             'landscape' => [
-                'width'  => 1920,
+                'width' => 1920,
                 'height' => 1080,
             ],
             'portrait' => [
-                'width'  => 1080,
+                'width' => 1080,
                 'height' => 1350,
             ],
         ];

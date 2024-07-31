@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 use League\Fractal;
 use League\Fractal\Serializer\ArraySerializer;
 
-
 class SearchApiV2Service
 {
     private $query;

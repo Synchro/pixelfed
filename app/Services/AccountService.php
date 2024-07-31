@@ -202,7 +202,7 @@ class AccountService
         }
 
         $count = Status::whereProfileId($id)
-            ->whereNull(['in_reply_to_id','reblog_of_id'])
+            ->whereNull(['in_reply_to_id', 'reblog_of_id'])
             ->whereIn('scope', ['public', 'unlisted', 'private'])
             ->count();
 
