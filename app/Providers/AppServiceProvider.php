@@ -25,16 +25,27 @@ use App\StatusHashtag;
 use App\User;
 use App\UserFilter;
 use Auth;
+use Gate;
 use Horizon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 use URL;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * The path to your application's "home" route.
+     *
+     * Typically, users are redirected here after authentication.
+     *
+     * @var string
+     */
+    public const HOME = '/home';
+
     /**
      * Bootstrap any application services.
      *
@@ -65,6 +76,8 @@ class AppServiceProvider extends ServiceProvider
         Validator::includeUnvalidatedArrayKeys();
 
         // Model::preventLazyLoading(true);
+
+        $this->bootAuth();
     }
 
     /**
@@ -75,5 +88,38 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+    }
+
+    public function bootAuth()
+    {
+        if (config('pixelfed.oauth_enabled') == true) {
+            Passport::tokensExpireIn(now()->addDays(config('instance.oauth.token_expiration', 356)));
+            Passport::refreshTokensExpireIn(now()->addDays(config('instance.oauth.refresh_expiration', 400)));
+            Passport::enableImplicitGrant();
+            if (config('instance.oauth.pat.enabled')) {
+                Passport::personalAccessClientId(config('instance.oauth.pat.id'));
+            }
+
+            Passport::tokensCan([
+                'read' => 'Full read access to your account',
+                'write' => 'Full write access to your account',
+                'follow' => 'Ability to follow other profiles',
+                'admin:read' => 'Read all data on the server',
+                'admin:read:domain_blocks' => 'Read sensitive information of all domain blocks',
+                'admin:write' => 'Modify all data on the server',
+                'admin:write:domain_blocks' => 'Perform moderation actions on domain blocks',
+                'push' => 'Receive your push notifications',
+            ]);
+
+            Passport::setDefaultScope([
+                'read',
+                'write',
+                'follow',
+            ]);
+        }
+
+        // Gate::define('viewWebSocketsDashboard', function ($user = null) {
+        //     return $user->is_admin;
+        // });
     }
 }
