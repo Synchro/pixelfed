@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'dangerzone' => \App\Http\Middleware\DangerZone::class,
         'localization' => \App\Http\Middleware\Localization::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'twofactor' => \App\Http\Middleware\TwoFactorAuth::class,
