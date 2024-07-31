@@ -96,7 +96,7 @@ class FeedInsertPipeline implements ShouldBeUniqueUntilProcessing, ShouldQueue
             $skipIds = UserDomainBlock::where('domain', $domain)->pluck('profile_id')->toArray();
         }
 
-        $filters = UserFilter::whereFilterableType('App\Profile')
+        $filters = UserFilter::whereFilterableType(\App\Profile::class)
             ->whereFilterableId($status['account']['id'])
             ->whereIn('filter_type', ['mute', 'block'])
             ->pluck('user_id')

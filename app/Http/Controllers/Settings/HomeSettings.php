@@ -133,7 +133,7 @@ trait HomeSettings
             $log = new AccountLog();
             $log->user_id = $user->id;
             $log->item_id = $user->id;
-            $log->item_type = 'App\User';
+            $log->item_type = \App\User::class;
             $log->action = 'account.edit.password';
             $log->message = 'Password changed';
             $log->link = null;
@@ -181,7 +181,7 @@ trait HomeSettings
             $log = new AccountLog();
             $log->user_id = $user->id;
             $log->item_id = $user->id;
-            $log->item_type = 'App\User';
+            $log->item_type = \App\User::class;
             $log->action = 'account.edit.email';
             $log->message = 'Email changed';
             $log->link = null;

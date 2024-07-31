@@ -94,7 +94,7 @@ class HashtagInsertFanoutPipeline implements ShouldBeUniqueUntilProcessing, Shou
             $skipIds = UserDomainBlock::where('domain', $domain)->pluck('profile_id')->toArray();
         }
 
-        $filters = UserFilter::whereFilterableType('App\Profile')->whereFilterableId($status['account']['id'])->whereIn('filter_type', ['mute', 'block'])->pluck('user_id')->toArray();
+        $filters = UserFilter::whereFilterableType(\App\Profile::class)->whereFilterableId($status['account']['id'])->whereIn('filter_type', ['mute', 'block'])->pluck('user_id')->toArray();
 
         if ($filters && count($filters)) {
             $skipIds = array_merge($skipIds, $filters);

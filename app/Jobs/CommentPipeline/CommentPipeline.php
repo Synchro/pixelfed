@@ -81,7 +81,7 @@ class CommentPipeline implements ShouldQueue
         }
 
         $filtered = UserFilter::whereUserId($target->id)
-            ->whereFilterableType('App\Profile')
+            ->whereFilterableType(\App\Profile::class)
             ->whereIn('filter_type', ['mute', 'block'])
             ->whereFilterableId($actor->id)
             ->exists();
@@ -97,7 +97,7 @@ class CommentPipeline implements ShouldQueue
                 $notification->actor_id = $actor->id;
                 $notification->action = 'comment';
                 $notification->item_id = $comment->id;
-                $notification->item_type = "App\Status";
+                $notification->item_type = \App\Status::class;
                 $notification->save();
 
                 NotificationService::setNotification($notification);

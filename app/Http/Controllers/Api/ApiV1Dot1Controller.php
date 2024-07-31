@@ -121,10 +121,10 @@ class ApiV1Dot1Controller extends Controller
                 if (! $object) {
                     return $this->error('Invalid object id', 400, ['error_code' => 'ERROR_INVALID_OBJECT_ID']);
                 }
-                $object_type = 'App\Status';
+                $object_type = \App\Status::class;
                 $exists = Report::whereUserId($user->id)
                     ->whereObjectId($object->id)
-                    ->whereObjectType('App\Status')
+                    ->whereObjectType(\App\Status::class)
                     ->count();
 
                 $rpid = $object->profile_id;
@@ -135,10 +135,10 @@ class ApiV1Dot1Controller extends Controller
                 if (! $object) {
                     return $this->error('Invalid object id', 400, ['error_code' => 'ERROR_INVALID_OBJECT_ID']);
                 }
-                $object_type = 'App\Profile';
+                $object_type = \App\Profile::class;
                 $exists = Report::whereUserId($user->id)
                     ->whereObjectId($object->id)
-                    ->whereObjectType('App\Profile')
+                    ->whereObjectType(\App\Profile::class)
                     ->count();
                 $rpid = $object->id;
                 break;
@@ -289,7 +289,7 @@ class ApiV1Dot1Controller extends Controller
         $log = new AccountLog;
         $log->user_id = $user->id;
         $log->item_id = $user->id;
-        $log->item_type = 'App\User';
+        $log->item_type = \App\User::class;
         $log->action = 'account.edit.password';
         $log->message = 'Password changed';
         $log->link = null;

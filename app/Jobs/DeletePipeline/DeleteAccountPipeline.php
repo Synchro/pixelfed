@@ -78,7 +78,7 @@ class DeleteAccountPipeline implements ShouldQueue
             }
         });
 
-        AccountLog::whereItemType('App\User')->whereItemId($user->id)->forceDelete();
+        AccountLog::whereItemType(\App\User::class)->whereItemId($user->id)->forceDelete();
 
         AccountInterstitial::whereUserId($user->id)->delete();
 

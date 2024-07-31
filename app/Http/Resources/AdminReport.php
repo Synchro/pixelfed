@@ -29,7 +29,7 @@ class AdminReport extends JsonResource
             'created_at' => $this->created_at,
         ];
 
-        if ($this->object_id && $this->object_type === 'App\Status') {
+        if ($this->object_id && $this->object_type === \App\Status::class) {
             $res['status'] = StatusService::get($this->object_id, false);
         }
 

@@ -233,7 +233,7 @@ trait AdminReportController
 
         AccountInterstitial::chunk(500, function ($reports) {
             foreach ($reports as $report) {
-                if ($report->item_type != 'App\Status') {
+                if ($report->item_type != \App\Status::class) {
                     continue;
                 }
 
@@ -329,7 +329,7 @@ trait AdminReportController
 
         if ($action == 'dismiss-all') {
             AccountInterstitial::whereType('post.autospam')
-                ->whereItemType('App\Status')
+                ->whereItemType(\App\Status::class)
                 ->whereNull('appeal_handled_at')
                 ->whereUserId($appeal->user_id)
                 ->update(['appeal_handled_at' => $now, 'is_spam' => true]);
@@ -342,7 +342,7 @@ trait AdminReportController
 
         if ($action == 'approve-all') {
             AccountInterstitial::whereType('post.autospam')
-                ->whereItemType('App\Status')
+                ->whereItemType(\App\Status::class)
                 ->whereNull('appeal_handled_at')
                 ->whereUserId($appeal->user_id)
                 ->get()
@@ -368,7 +368,7 @@ trait AdminReportController
 
         if ($action == 'mark-spammer') {
             AccountInterstitial::whereType('post.autospam')
-                ->whereItemType('App\Status')
+                ->whereItemType(\App\Status::class)
                 ->whereNull('appeal_handled_at')
                 ->whereUserId($appeal->user_id)
                 ->update(['appeal_handled_at' => $now, 'is_spam' => true]);
@@ -782,7 +782,7 @@ trait AdminReportController
                     ->save();
 
                 Report::where('reported_profile_id', $profile->id)
-                    ->whereObjectType('App\Story')
+                    ->whereObjectType(\App\Story::class)
                     ->whereNull('admin_seen')
                     ->update([
                         'admin_seen' => now(),
@@ -810,9 +810,9 @@ trait AdminReportController
                 break;
 
             case 'nsfw':
-                if ($report->object_type === 'App\Profile') {
+                if ($report->object_type === \App\Profile::class) {
                     $profile = Profile::find($report->object_id);
-                } elseif ($report->object_type === 'App\Status') {
+                } elseif ($report->object_type === \App\Status::class) {
                     $status = Status::find($report->object_id);
                     if (! $status) {
                         return [200];
@@ -860,9 +860,9 @@ trait AdminReportController
                 break;
 
             case 'unlist':
-                if ($report->object_type === 'App\Profile') {
+                if ($report->object_type === \App\Profile::class) {
                     $profile = Profile::find($report->object_id);
-                } elseif ($report->object_type === 'App\Status') {
+                } elseif ($report->object_type === \App\Status::class) {
                     $status = Status::find($report->object_id);
                     if (! $status) {
                         return [200];
@@ -910,9 +910,9 @@ trait AdminReportController
                 break;
 
             case 'private':
-                if ($report->object_type === 'App\Profile') {
+                if ($report->object_type === \App\Profile::class) {
                     $profile = Profile::find($report->object_id);
-                } elseif ($report->object_type === 'App\Status') {
+                } elseif ($report->object_type === \App\Status::class) {
                     $status = Status::find($report->object_id);
                     if (! $status) {
                         return [200];
@@ -964,9 +964,9 @@ trait AdminReportController
                     abort(404);
                 }
 
-                if ($report->object_type === 'App\Profile') {
+                if ($report->object_type === \App\Profile::class) {
                     $profile = Profile::find($report->object_id);
-                } elseif ($report->object_type === 'App\Status') {
+                } elseif ($report->object_type === \App\Status::class) {
                     $status = Status::find($report->object_id);
                     if (! $status) {
                         return [200];
@@ -1273,7 +1273,7 @@ trait AdminReportController
 
         if ($action == 'mark-all-read') {
             AccountInterstitial::whereType('post.autospam')
-                ->whereItemType('App\Status')
+                ->whereItemType(\App\Status::class)
                 ->whereNull('appeal_handled_at')
                 ->whereUserId($appeal->user_id)
                 ->update([
@@ -1284,7 +1284,7 @@ trait AdminReportController
 
         if ($action == 'mark-all-not-spam') {
             AccountInterstitial::whereType('post.autospam')
-                ->whereItemType('App\Status')
+                ->whereItemType(\App\Status::class)
                 ->whereUserId($appeal->user_id)
                 ->get()
                 ->each(function ($report) use ($meta) {

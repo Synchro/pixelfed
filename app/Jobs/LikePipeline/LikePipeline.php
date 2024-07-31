@@ -73,7 +73,7 @@ class LikePipeline implements ShouldQueue
             ->whereActorId($actor->id)
             ->whereAction('like')
             ->whereItemId($status->id)
-            ->whereItemType('App\Status')
+            ->whereItemType(\App\Status::class)
             ->count();
 
         if ($actor->id === $status->profile_id || $exists !== 0) {
@@ -87,7 +87,7 @@ class LikePipeline implements ShouldQueue
                 $notification->actor_id = $actor->id;
                 $notification->action = 'like';
                 $notification->item_id = $status->id;
-                $notification->item_type = "App\Status";
+                $notification->item_type = \App\Status::class;
                 $notification->save();
 
             } catch (Exception $e) {

@@ -122,10 +122,10 @@ class ReportController extends Controller
         switch ($object_type) {
             case 'post':
                 $object = Status::findOrFail($object_id);
-                $object_type = 'App\Status';
+                $object_type = \App\Status::class;
                 $exists = Report::whereUserId(Auth::id())
                     ->whereObjectId($object->id)
-                    ->whereObjectType('App\Status')
+                    ->whereObjectType(\App\Status::class)
                     ->count();
                 break;
 

@@ -62,7 +62,7 @@ class StatusReplyPipeline implements ShouldQueue
             ->whereActorId($actor->id)
             ->whereIn('action', ['mention', 'comment'])
             ->whereItemId($status->id)
-            ->whereItemType('App\Status')
+            ->whereItemType(\App\Status::class)
             ->count();
 
         if ($actor->id === $target || $exists !== 0) {
@@ -94,7 +94,7 @@ class StatusReplyPipeline implements ShouldQueue
                 $notification->actor_id = $actor->id;
                 $notification->action = 'comment';
                 $notification->item_id = $status->id;
-                $notification->item_type = "App\Status";
+                $notification->item_type = \App\Status::class;
                 $notification->save();
 
                 NotificationService::setNotification($notification);

@@ -110,7 +110,7 @@ class DeleteRemoteProfilePipeline implements ShouldQueue
         }
 
         // Delete mutes/blocks
-        UserFilter::whereFilterableType('App\Profile')->whereFilterableId($pid)->delete();
+        UserFilter::whereFilterableType(\App\Profile::class)->whereFilterableId($pid)->delete();
 
         // Delete mentions
         Mention::whereProfileId($pid)->forceDelete();

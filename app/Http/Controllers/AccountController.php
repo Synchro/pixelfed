@@ -597,7 +597,7 @@ class AccountController extends Controller
         $limit = $request->input('limit') ?? 40;
 
         $mutes = UserFilter::whereUserId($user->profile_id)
-            ->whereFilterableType('App\Profile')
+            ->whereFilterableType(\App\Profile::class)
             ->whereFilterType('mute')
             ->simplePaginate($limit)
             ->pluck('filterable_id');
@@ -630,7 +630,7 @@ class AccountController extends Controller
 
         $blocked = UserFilter::select('filterable_id', 'filterable_type', 'filter_type', 'user_id')
             ->whereUserId($user->profile_id)
-            ->whereFilterableType('App\Profile')
+            ->whereFilterableType(\App\Profile::class)
             ->whereFilterType('block')
             ->simplePaginate($limit)
             ->pluck('filterable_id');

@@ -360,7 +360,7 @@ class StoryComposeController extends Controller
         abort_if(! FollowerService::follows($pid, $story->profile_id), 422, 'Cannot report a story from an account you do not follow');
 
         if (Report::whereProfileId($pid)
-            ->whereObjectType('App\Story')
+            ->whereObjectType(\App\Story::class)
             ->whereObjectId($story->id)
             ->exists()
         ) {
@@ -374,7 +374,7 @@ class StoryComposeController extends Controller
         $report->profile_id = $pid;
         $report->user_id = $request->user()->id;
         $report->object_id = $story->id;
-        $report->object_type = 'App\Story';
+        $report->object_type = \App\Story::class;
         $report->reported_profile_id = $story->profile_id;
         $report->type = $type;
         $report->message = null;
@@ -446,7 +446,7 @@ class StoryComposeController extends Controller
             $n->profile_id = $dm->to_id;
             $n->actor_id = $dm->from_id;
             $n->item_id = $dm->id;
-            $n->item_type = 'App\DirectMessage';
+            $n->item_type = \App\DirectMessage::class;
             $n->action = 'story:react';
             $n->save();
         } else {
@@ -519,7 +519,7 @@ class StoryComposeController extends Controller
             $n->profile_id = $dm->to_id;
             $n->actor_id = $dm->from_id;
             $n->item_id = $dm->id;
-            $n->item_type = 'App\DirectMessage';
+            $n->item_type = \App\DirectMessage::class;
             $n->action = 'story:comment';
             $n->save();
         } else {
