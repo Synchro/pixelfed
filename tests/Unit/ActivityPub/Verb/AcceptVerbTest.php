@@ -13,7 +13,7 @@ class AcceptVerbTest extends TestCase
 
     protected array $mastodonAccept;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

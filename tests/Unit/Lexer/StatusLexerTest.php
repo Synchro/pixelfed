@@ -15,7 +15,7 @@ class StatusLexerTest extends TestCase
 
     public $autolink;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->status = '@pixelfed hi, really like the website! #píxelfed';

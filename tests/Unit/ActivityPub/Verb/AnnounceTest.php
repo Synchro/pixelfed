@@ -25,7 +25,7 @@ class AnnounceTest extends TestCase
 
     protected array $mastodonAnnounce;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

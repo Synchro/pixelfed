@@ -9,7 +9,7 @@ class RemoteFollowTest extends TestCase
 {
     protected string $mastodon;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

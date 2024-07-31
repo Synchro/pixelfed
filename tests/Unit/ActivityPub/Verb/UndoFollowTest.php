@@ -11,7 +11,7 @@ class UndoFollowTest extends TestCase
 
     protected array $invalidUndo;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

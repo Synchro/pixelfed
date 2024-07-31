@@ -17,7 +17,7 @@ class NoteAttachmentTest extends TestCase
 
     protected array $invalidMime;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

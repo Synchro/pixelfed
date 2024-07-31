@@ -9,7 +9,7 @@ class AudienceScopeTest extends TestCase
 {
     protected array $invalid;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
