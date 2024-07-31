@@ -62,7 +62,7 @@ class GroupController extends GroupFederationController
     public function showStatus(Request $request, $gid, $sid)
     {
         $group = Group::find($gid);
-        $pid = optional($request->user())->profile_id ?? false;
+        $pid = $request->user()?->profile_id ?? false;
 
         if (! $group || $group->status) {
             return response()->view('groups.unavailable')->setStatusCode(404);
@@ -82,7 +82,7 @@ class GroupController extends GroupFederationController
     public function getGroup(Request $request, $id)
     {
         $group = Group::whereNull('status')->findOrFail($id);
-        $pid = optional($request->user())->profile_id ?? false;
+        $pid = $request->user()?->profile_id ?? false;
 
         $group = $this->toJson($group, $pid);
 
