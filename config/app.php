@@ -15,27 +15,6 @@ return [
 
     'banner_image' => '/storage/headers/default.jpg',
 
-    'providers' => ServiceProvider::defaultProviders()->merge([
-        /*
-         * Laravel Framework Service Providers...
-         */
-
-        /*
-         * Package Service Providers...
-         */
-
-        /*
-         * Application Service Providers...
-         */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\BroadcastServiceProvider::class,
-        App\Providers\HorizonServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        // App\Providers\TelescopeServiceProvider::class,
-        App\Providers\PassportServiceProvider::class,
-    ])->toArray(),
 
     'aliases' => Facade::defaultAliases()->merge([
         'Captcha' => Buzz\LaravelHCaptcha\CaptchaFacade::class,
