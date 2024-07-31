@@ -20,7 +20,7 @@ class LikeObserver
      * @param  \App\Models\Like  $like
      * @return void
      */
-    public function created(Like $like)
+    public function created(Like $like): void
     {
         LikeService::add($like->profile_id, $like->status_id);
     }
@@ -31,7 +31,7 @@ class LikeObserver
      * @param  \App\Models\Like  $like
      * @return void
      */
-    public function updated(Like $like)
+    public function updated(Like $like): void
     {
         //
     }
@@ -42,7 +42,7 @@ class LikeObserver
      * @param  \App\Models\Like  $like
      * @return void
      */
-    public function deleted(Like $like)
+    public function deleted(Like $like): void
     {
         LikeService::remove($like->profile_id, $like->status_id);
     }
@@ -53,7 +53,7 @@ class LikeObserver
      * @param  \App\Models\Like  $like
      * @return void
      */
-    public function restored(Like $like)
+    public function restored(Like $like): void
     {
         LikeService::add($like->profile_id, $like->status_id);
     }
@@ -64,7 +64,7 @@ class LikeObserver
      * @param  \App\Models\Like  $like
      * @return void
      */
-    public function forceDeleted(Like $like)
+    public function forceDeleted(Like $like): void
     {
         LikeService::remove($like->profile_id, $like->status_id);
     }

@@ -37,7 +37,7 @@ class UserDelete extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $id = $this->argument('id');
         $force = $this->option('force');

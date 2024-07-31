@@ -33,7 +33,7 @@ class NewMention implements ShouldBroadcastNow
         return 'notification.new.mention';
     }
 
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
         return new PrivateChannel('App.User.'.$this->user->id);
     }

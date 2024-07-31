@@ -37,7 +37,7 @@ class UserToggle2FA extends Command implements PromptsForMissingInput
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $user = User::whereUsername($this->argument('username'))->first();
 

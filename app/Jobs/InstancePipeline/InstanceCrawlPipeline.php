@@ -28,7 +28,7 @@ class InstanceCrawlPipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         Instance::whereNull('last_crawled_at')->whereNull('software')->chunk(50, function ($instances) {
             foreach ($instances as $instance) {

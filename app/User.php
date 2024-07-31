@@ -2,6 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Services\AvatarService;
 use App\Util\RateLimit\User as UserRateLimit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -63,7 +66,7 @@ class User extends Authenticatable
         'updated_at',
     ];
 
-    public function profile()
+    public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
     }
@@ -73,12 +76,12 @@ class User extends Authenticatable
         return url(config('app.url').'/'.$this->username);
     }
 
-    public function settings()
+    public function settings(): HasOne
     {
         return $this->hasOne(UserSetting::class);
     }
 
-    public function statuses()
+    public function statuses(): HasManyThrough
     {
         return $this->hasManyThrough(
             Status::class,
@@ -86,7 +89,7 @@ class User extends Authenticatable
         );
     }
 
-    public function filters()
+    public function filters(): HasMany
     {
         return $this->hasMany(UserFilter::class, 'user_id', 'profile_id');
     }
@@ -96,7 +99,7 @@ class User extends Authenticatable
         return 'App.User.'.$this->id;
     }
 
-    public function devices()
+    public function devices(): HasMany
     {
         return $this->hasMany(UserDevice::class);
     }
@@ -106,12 +109,12 @@ class User extends Authenticatable
         return 'profile:storage:used:'.$this->id;
     }
 
-    public function accountLog()
+    public function accountLog(): HasMany
     {
         return $this->hasMany(AccountLog::class);
     }
 
-    public function interstitials()
+    public function interstitials(): HasMany
     {
         return $this->hasMany(AccountInterstitial::class);
     }

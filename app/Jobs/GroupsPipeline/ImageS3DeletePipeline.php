@@ -40,7 +40,7 @@ class ImageS3DeletePipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $media = $this->media;
 

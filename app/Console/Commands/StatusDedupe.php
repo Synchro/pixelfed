@@ -38,7 +38,7 @@ class StatusDedupe extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
 
         if (config('database.default') == 'pgsql') {

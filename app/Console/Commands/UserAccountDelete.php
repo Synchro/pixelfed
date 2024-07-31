@@ -36,7 +36,7 @@ class UserAccountDelete extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $id = search(
             label: 'Search for the account to delete by username',

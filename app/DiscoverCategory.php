@@ -2,13 +2,16 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Model;
 
 class DiscoverCategory extends Model
 {
     protected $fillable = ['slug'];
 
-    public function media()
+    public function media(): BelongsTo
     {
         return $this->belongsTo(Media::class);
     }
@@ -33,12 +36,12 @@ class DiscoverCategory extends Model
         return $this->media->url();
     }
 
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(DiscoverCategoryHashtag::class, 'discover_category_id');
     }
 
-    public function hashtags()
+    public function hashtags(): HasManyThrough
     {
         return $this->hasManyThrough(
             Hashtag::class,

@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('statuses', function (Blueprint $table) {
             $table->index('in_reply_to_id');
@@ -24,7 +24,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('statuses', function (Blueprint $table) {
             $table->dropIndex('statuses_in_reply_to_id_index');

@@ -91,7 +91,7 @@ class RemoteStatusDelete implements ShouldBeUniqueUntilProcessing, ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $status = $this->status;
 

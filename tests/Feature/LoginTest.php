@@ -7,7 +7,7 @@ use Tests\TestCase;
 class LoginTest extends TestCase
 {
     /** @test */
-    public function view_login_page()
+    public function view_login_page(): void
     {
         $response = $this->get('login');
 

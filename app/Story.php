@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Util\Lexer\Bearcap;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -33,12 +35,12 @@ class Story extends Model
         ];
     }
 
-    public function profile()
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class);
     }
 
-    public function views()
+    public function views(): HasMany
     {
         return $this->hasMany(StoryView::class);
     }

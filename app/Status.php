@@ -2,6 +2,10 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Http\Controllers\StatusController;
 use App\Models\Poll;
 use App\Models\StatusEdit;
@@ -61,17 +65,17 @@ class Status extends Model
 
     const MAX_LINKS = 5;
 
-    public function profile()
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class);
     }
 
-    public function media()
+    public function media(): HasMany
     {
         return $this->hasMany(Media::class);
     }
 
-    public function firstMedia()
+    public function firstMedia(): HasMany
     {
         return $this->hasMany(Media::class)->orderBy('order', 'asc')->first();
     }
@@ -168,7 +172,7 @@ class Status extends Model
         return $url;
     }
 
-    public function likes()
+    public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
     }
@@ -187,7 +191,7 @@ class Status extends Model
             ->exists();
     }
 
-    public function likedBy()
+    public function likedBy(): HasManyThrough
     {
         return $this->hasManyThrough(
             Profile::class,
@@ -199,7 +203,7 @@ class Status extends Model
         );
     }
 
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(self::class, 'in_reply_to_id');
     }
@@ -214,7 +218,7 @@ class Status extends Model
         return Bookmark::whereProfileId($profile->id)->whereStatusId($this->id)->count();
     }
 
-    public function shares()
+    public function shares(): HasMany
     {
         return $this->hasMany(self::class, 'reblog_of_id');
     }
@@ -232,7 +236,7 @@ class Status extends Model
             ->exists();
     }
 
-    public function sharedBy()
+    public function sharedBy(): HasManyThrough
     {
         return $this->hasManyThrough(
             Profile::class,
@@ -254,12 +258,12 @@ class Status extends Model
         }
     }
 
-    public function conversation()
+    public function conversation(): HasOne
     {
         return $this->hasOne(Conversation::class);
     }
 
-    public function hashtags()
+    public function hashtags(): HasManyThrough
     {
         return $this->hasManyThrough(
             Hashtag::class,
@@ -271,7 +275,7 @@ class Status extends Model
         );
     }
 
-    public function mentions()
+    public function mentions(): HasManyThrough
     {
         return $this->hasManyThrough(
             Profile::class,
@@ -405,22 +409,22 @@ class Status extends Model
         return $res[$audience];
     }
 
-    public function place()
+    public function place(): BelongsTo
     {
         return $this->belongsTo(Place::class);
     }
 
-    public function directMessage()
+    public function directMessage(): HasOne
     {
         return $this->hasOne(DirectMessage::class);
     }
 
-    public function poll()
+    public function poll(): HasOne
     {
         return $this->hasOne(Poll::class);
     }
 
-    public function edits()
+    public function edits(): HasMany
     {
         return $this->hasMany(StatusEdit::class);
     }

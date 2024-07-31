@@ -12,12 +12,12 @@ class CryptoTest extends TestCase
      *
      * @return void
      */
-    public function testLibraryInstalled()
+    public function testLibraryInstalled(): void
     {
         $this->assertTrue(class_exists('\phpseclib\Crypt\RSA'));
     }
 
-    public function testRSASigning()
+    public function testRSASigning(): void
     {
         $rsa = new RSA();
         extract($rsa->createKey());

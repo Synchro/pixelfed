@@ -32,7 +32,7 @@ class ContactPipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $contact = $this->contact;
         $email = config('instance.email');

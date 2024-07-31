@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +17,7 @@ class ImportPost extends Model
         'metadata' => 'json',
     ];
 
-    public function status()
+    public function status(): HasOne
     {
         return $this->hasOne(Status::class, 'id', 'status_id');
     }

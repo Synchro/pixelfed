@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('user_settings', function (Blueprint $table) {
             $table->boolean('show_profile_followers')->default(true);
@@ -26,7 +26,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('user_settings', function (Blueprint $table) {
             $table->dropColumn(['show_profile_followers', 'show_profile_follower_count', 'show_profile_following', 'show_profile_following_count']);

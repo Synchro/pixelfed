@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Hashtag::withoutEvents(function () {
             Hashtag::whereNotNull('cached_count')->chunkById(50, function ($hashtags) {
@@ -31,7 +31,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         //
     }

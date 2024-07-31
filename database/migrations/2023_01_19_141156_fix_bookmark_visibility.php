@@ -12,7 +12,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Bookmark::chunk(200, function ($bookmarks) {
             foreach ($bookmarks as $bookmark) {
@@ -47,7 +47,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         //
     }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,12 +24,12 @@ class Mention extends Model
         ];
     }
 
-    public function profile()
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
 
-    public function status()
+    public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'status_id', 'id');
     }

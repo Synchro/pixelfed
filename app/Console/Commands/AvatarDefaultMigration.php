@@ -39,7 +39,7 @@ class AvatarDefaultMigration extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->info('Running avatar migration...');
         $count = Avatar::whereChangeCount(0)->count();

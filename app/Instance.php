@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Model;
 
 class Instance extends Model
@@ -33,12 +35,12 @@ class Instance extends Model
         });
     }
 
-    public function profiles()
+    public function profiles(): HasMany
     {
         return $this->hasMany(Profile::class, 'domain', 'domain');
     }
 
-    public function statuses()
+    public function statuses(): HasManyThrough
     {
         return $this->hasManyThrough(
             Status::class,
@@ -50,7 +52,7 @@ class Instance extends Model
         );
     }
 
-    public function reported()
+    public function reported(): HasManyThrough
     {
         return $this->hasManyThrough(
             Report::class,
@@ -62,7 +64,7 @@ class Instance extends Model
         );
     }
 
-    public function reports()
+    public function reports(): HasManyThrough
     {
         return $this->hasManyThrough(
             Report::class,
@@ -74,7 +76,7 @@ class Instance extends Model
         );
     }
 
-    public function media()
+    public function media(): HasManyThrough
     {
         return $this->hasManyThrough(
             Media::class,

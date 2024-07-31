@@ -47,7 +47,7 @@ class SharePipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $status = $this->status;
         $parent = Status::find($this->status->reblog_of_id);

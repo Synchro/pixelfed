@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\HasSnowflakePrimary;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,7 @@ class Poll extends Model
         'expires_at' => 'datetime',
     ];
 
-    public function votes()
+    public function votes(): HasMany
     {
         return $this->hasMany(PollVote::class);
     }

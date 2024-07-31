@@ -19,7 +19,7 @@ class ProfileObserver
      *
      * @return void
      */
-    public function created(Profile $profile)
+    public function created(Profile $profile): void
     {
         //
     }
@@ -29,7 +29,7 @@ class ProfileObserver
      *
      * @return void
      */
-    public function updated(Profile $profile)
+    public function updated(Profile $profile): void
     {
         AccountService::del($profile->id);
     }
@@ -39,7 +39,7 @@ class ProfileObserver
      *
      * @return void
      */
-    public function deleted(Profile $profile)
+    public function deleted(Profile $profile): void
     {
         AccountService::del($profile->id);
     }
@@ -49,7 +49,7 @@ class ProfileObserver
      *
      * @return void
      */
-    public function restored(Profile $profile)
+    public function restored(Profile $profile): void
     {
         //
     }
@@ -59,7 +59,7 @@ class ProfileObserver
      *
      * @return void
      */
-    public function forceDeleted(Profile $profile)
+    public function forceDeleted(Profile $profile): void
     {
         //
     }

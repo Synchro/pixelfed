@@ -40,7 +40,7 @@ class FollowServiceWarmCacheLargeIngestPipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $pid = $this->profileId;
         $type = $this->followType;

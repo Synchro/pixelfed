@@ -41,7 +41,7 @@ class StatusTagsPipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $res = $this->activity;
         $status = $this->status;

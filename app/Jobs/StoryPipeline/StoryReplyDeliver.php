@@ -42,7 +42,7 @@ class StoryReplyDeliver implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $story = $this->story;
         $status = $this->status;

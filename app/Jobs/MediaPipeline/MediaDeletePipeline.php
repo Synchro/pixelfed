@@ -59,7 +59,7 @@ class MediaDeletePipeline implements ShouldBeUniqueUntilProcessing, ShouldQueue
         $this->media = $media;
     }
 
-    public function handle()
+    public function handle(): void
     {
         $media = $this->media;
         $path = $media->media_path;

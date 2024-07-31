@@ -2,6 +2,11 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\ProfileAlias;
 use App\Services\FollowerService;
 use App\Util\Lexer\PrettyNumber;
@@ -37,7 +42,7 @@ class Profile extends Model
         ];
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -68,7 +73,7 @@ class Profile extends Model
         return $this->username.'@'.$domain;
     }
 
-    public function statuses()
+    public function statuses(): HasMany
     {
         return $this->hasMany(Status::class);
     }
@@ -114,7 +119,7 @@ class Profile extends Model
         return $this->status_count;
     }
 
-    public function following()
+    public function following(): BelongsToMany
     {
         return $this->belongsToMany(
             self::class,
@@ -124,7 +129,7 @@ class Profile extends Model
         );
     }
 
-    public function followers()
+    public function followers(): BelongsToMany
     {
         return $this->belongsToMany(
             self::class,
@@ -144,7 +149,7 @@ class Profile extends Model
         return Follower::whereProfileId($profile->id)->whereFollowingId($this->id)->exists();
     }
 
-    public function bookmarks()
+    public function bookmarks(): BelongsToMany
     {
         return $this->belongsToMany(
             Status::class,
@@ -154,12 +159,12 @@ class Profile extends Model
         );
     }
 
-    public function likes()
+    public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
     }
 
-    public function avatar()
+    public function avatar(): HasOne
     {
         return $this->hasOne(Avatar::class)->withDefault([
             'media_path' => 'public/avatars/default.jpg',
@@ -266,12 +271,12 @@ class Profile extends Model
         });
     }
 
-    public function reports()
+    public function reports(): HasMany
     {
         return $this->hasMany(Report::class, 'profile_id');
     }
 
-    public function media()
+    public function media(): HasMany
     {
         return $this->hasMany(Media::class, 'profile_id');
     }
@@ -345,12 +350,12 @@ class Profile extends Model
         return FollowerService::audience($this->id, $scope);
     }
 
-    public function circles()
+    public function circles(): HasMany
     {
         return $this->hasMany(Circle::class);
     }
 
-    public function hashtags()
+    public function hashtags(): HasManyThrough
     {
         return $this->hasManyThrough(
             Hashtag::class,
@@ -362,12 +367,12 @@ class Profile extends Model
         );
     }
 
-    public function hashtagFollowing()
+    public function hashtagFollowing(): HasMany
     {
         return $this->hasMany(HashtagFollow::class);
     }
 
-    public function collections()
+    public function collections(): HasMany
     {
         return $this->hasMany(Collection::class);
     }
@@ -379,17 +384,17 @@ class Profile extends Model
             ->exists();
     }
 
-    public function stories()
+    public function stories(): HasMany
     {
         return $this->hasMany(Story::class);
     }
 
-    public function reported()
+    public function reported(): HasMany
     {
         return $this->hasMany(Report::class, 'object_id');
     }
 
-    public function aliases()
+    public function aliases(): HasMany
     {
         return $this->hasMany(ProfileAlias::class);
     }

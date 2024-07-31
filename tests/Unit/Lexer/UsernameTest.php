@@ -9,7 +9,7 @@ use Tests\TestCase;
 class UsernameTest extends TestCase
 {
     /** @test * */
-    public function genericUsername()
+    public function genericUsername(): void
     {
         $username = '@dansup';
         $entities = Extractor::create()->extract($username);
@@ -39,7 +39,7 @@ class UsernameTest extends TestCase
     }
 
     /** @test * */
-    public function usernameWithPeriod()
+    public function usernameWithPeriod(): void
     {
         $username = '@dansup.two';
         $autolink = Autolink::create()->autolink($username);
@@ -69,7 +69,7 @@ class UsernameTest extends TestCase
     }
 
     /** @test * */
-    public function usernameWithDash()
+    public function usernameWithDash(): void
     {
         $username = '@dansup-too';
         $autolink = Autolink::create()->autolink($username);
@@ -99,7 +99,7 @@ class UsernameTest extends TestCase
     }
 
     /** @test * */
-    public function usernameWithUnderscore()
+    public function usernameWithUnderscore(): void
     {
         $username = '@dansup_too';
         $autolink = Autolink::create()->autolink($username);
@@ -129,7 +129,7 @@ class UsernameTest extends TestCase
     }
 
     /** @test * */
-    public function multipleMentions()
+    public function multipleMentions(): void
     {
         $text = 'hello @dansup and @pixelfed.team from @username_underscore';
         $autolink = Autolink::create()->autolink($text);
@@ -176,7 +176,7 @@ class UsernameTest extends TestCase
     }
 
     /** @test * */
-    public function germanUmlatsAutolink()
+    public function germanUmlatsAutolink(): void
     {
         $mentions = '@März and @königin and @Glück';
         $autolink = Autolink::create()->autolink($mentions);
@@ -186,7 +186,7 @@ class UsernameTest extends TestCase
     }
 
     /** @test * */
-    public function germanUmlatsExtractor()
+    public function germanUmlatsExtractor(): void
     {
         $mentions = '@März and @königin and @Glück';
         $entities = Extractor::create()->extract($mentions);
@@ -230,7 +230,7 @@ class UsernameTest extends TestCase
     }
 
     /** @test * */
-    public function germanUmlatsWebfingerAutolink()
+    public function germanUmlatsWebfingerAutolink(): void
     {
         $mentions = 'hello @märz@example.org!';
         $autolink = Autolink::create()->autolink($mentions);

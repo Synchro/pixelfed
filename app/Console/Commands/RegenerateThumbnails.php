@@ -37,7 +37,7 @@ class RegenerateThumbnails extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         DB::transaction(function () {
             Media::whereIn('mime', ['image/jpeg', 'image/png'])

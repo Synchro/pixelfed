@@ -31,7 +31,7 @@ class MemberJoinApprovedPipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $member = $this->member;
         $member->approved_at = now();

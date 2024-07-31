@@ -37,7 +37,7 @@ class VideoThumbnail extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $limit = 10;
         $videos = Media::whereMime('video/mp4')

@@ -27,7 +27,7 @@ class CaptchaToggleCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $captchaEnabled = (bool) config_cache('captcha.enabled');
 

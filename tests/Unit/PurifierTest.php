@@ -8,7 +8,7 @@ use Tests\TestCase;
 class PurifierTest extends TestCase
 {
     /** @test */
-    public function puckTest()
+    public function puckTest(): void
     {
         $actual = Purify::clean('<span class="fa-spin fa">catgirl spinning around in the interblag</span>');
         $expected = '<span>catgirl spinning around in the interblag</span>';

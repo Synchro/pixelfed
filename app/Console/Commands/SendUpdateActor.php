@@ -31,7 +31,7 @@ class SendUpdateActor extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $totalUserCount = Profile::whereNotNull('user_id')->count();
         $totalInstanceCount = Instance::count();

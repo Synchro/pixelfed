@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('media', function (Blueprint $table) {
             $table->string('original_sha256')->nullable()->index()->after('user_id');
@@ -29,7 +29,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('media', function (Blueprint $table) {
             $table->dropColumn(['original_sha256', 'optimized_sha256', 'caption', 'hls_path', 'hls_transcoded_at', 'key', 'metadata']);

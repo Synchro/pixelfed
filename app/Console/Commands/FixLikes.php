@@ -37,7 +37,7 @@ class FixLikes extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $chunk = 100;
         $limit = Like::select('status_id')->groupBy('status_id')->get()->count();

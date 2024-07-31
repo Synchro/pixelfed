@@ -45,7 +45,7 @@ class ImportInstagram implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if (config_cache('pixelfed.import.instagram.enabled') != true) {
             return;

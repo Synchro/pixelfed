@@ -24,7 +24,7 @@ class StatusObserver
      *
      * @return void
      */
-    public function created(Status $status)
+    public function created(Status $status): void
     {
         //
     }
@@ -34,7 +34,7 @@ class StatusObserver
      *
      * @return void
      */
-    public function updated(Status $status)
+    public function updated(Status $status): void
     {
         if (! in_array($status->scope, ['public', 'unlisted', 'private'])) {
             return;
@@ -54,7 +54,7 @@ class StatusObserver
      *
      * @return void
      */
-    public function deleted(Status $status)
+    public function deleted(Status $status): void
     {
         if (! in_array($status->scope, ['public', 'unlisted', 'private'])) {
             return;
@@ -85,7 +85,7 @@ class StatusObserver
      *
      * @return void
      */
-    public function restored(Status $status)
+    public function restored(Status $status): void
     {
         //
     }
@@ -95,7 +95,7 @@ class StatusObserver
      *
      * @return void
      */
-    public function forceDeleted(Status $status)
+    public function forceDeleted(Status $status): void
     {
         //
     }

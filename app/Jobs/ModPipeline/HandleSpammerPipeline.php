@@ -25,7 +25,7 @@ class HandleSpammerPipeline implements ShouldQueue
         $this->profile = $profile;
     }
 
-    public function handle()
+    public function handle(): void
     {
         $profile = $this->profile;
 

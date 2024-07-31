@@ -36,7 +36,7 @@ class UserVerifyEmail extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $user = User::whereUsername($this->argument('username'))->first();
 

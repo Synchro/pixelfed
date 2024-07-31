@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class ModLog extends Model
@@ -10,7 +11,7 @@ class ModLog extends Model
 
     protected $fillable = ['*'];
 
-    public function admin()
+    public function admin(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }

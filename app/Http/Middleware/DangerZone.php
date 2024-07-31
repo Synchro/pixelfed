@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
 use Closure;
@@ -15,7 +17,7 @@ class DangerZone
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         if ($request->session()->get('sudoModeAttempts') > 3) {
             $request->session()->pull('redirectNext');

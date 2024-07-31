@@ -18,7 +18,7 @@ class GenerateInstanceActor extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(): int
     {
         if (Schema::hasTable('instance_actors') == false) {
             $this->line(' ');

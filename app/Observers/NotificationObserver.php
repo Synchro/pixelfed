@@ -19,7 +19,7 @@ class NotificationObserver
      *
      * @return void
      */
-    public function created(Notification $notification)
+    public function created(Notification $notification): void
     {
         NotificationService::set($notification->profile_id, $notification->id);
     }
@@ -29,7 +29,7 @@ class NotificationObserver
      *
      * @return void
      */
-    public function updated(Notification $notification)
+    public function updated(Notification $notification): void
     {
         NotificationService::set($notification->profile_id, $notification->id);
     }
@@ -39,7 +39,7 @@ class NotificationObserver
      *
      * @return void
      */
-    public function deleted(Notification $notification)
+    public function deleted(Notification $notification): void
     {
         NotificationService::del($notification->profile_id, $notification->id);
     }
@@ -49,7 +49,7 @@ class NotificationObserver
      *
      * @return void
      */
-    public function restored(Notification $notification)
+    public function restored(Notification $notification): void
     {
         NotificationService::set($notification->profile_id, $notification->id);
     }
@@ -59,7 +59,7 @@ class NotificationObserver
      *
      * @return void
      */
-    public function forceDeleted(Notification $notification)
+    public function forceDeleted(Notification $notification): void
     {
         NotificationService::del($notification->profile_id, $notification->id);
     }

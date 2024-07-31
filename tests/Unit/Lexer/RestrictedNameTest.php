@@ -8,7 +8,7 @@ use Tests\TestCase;
 class RestrictedNameTest extends TestCase
 {
     /** @test */
-    public function restrictedUsername()
+    public function restrictedUsername(): void
     {
         $names = RestrictedNames::get();
         $this->assertContains('p', $names);

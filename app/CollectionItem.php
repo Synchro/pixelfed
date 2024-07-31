@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class CollectionItem extends Model
@@ -22,7 +23,7 @@ class CollectionItem extends Model
      */
     public $incrementing = false;
 
-    public function collection()
+    public function collection(): BelongsTo
     {
         return $this->belongsTo(Collection::class);
     }

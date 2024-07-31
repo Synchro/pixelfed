@@ -20,7 +20,7 @@ class ModLogObserver
      *
      * @return void
      */
-    public function created(ModLog $modLog)
+    public function created(ModLog $modLog): void
     {
         ModLogService::boot()->load($modLog)->fanout();
     }
@@ -30,7 +30,7 @@ class ModLogObserver
      *
      * @return void
      */
-    public function updated(ModLog $modLog)
+    public function updated(ModLog $modLog): void
     {
         ModLogService::boot()->load($modLog)->fanout();
     }
@@ -40,7 +40,7 @@ class ModLogObserver
      *
      * @return void
      */
-    public function deleted(ModLog $modLog)
+    public function deleted(ModLog $modLog): void
     {
         ModLogService::boot()->load($modLog)->unfanout();
     }
@@ -50,7 +50,7 @@ class ModLogObserver
      *
      * @return void
      */
-    public function restored(ModLog $modLog)
+    public function restored(ModLog $modLog): void
     {
         ModLogService::boot()->load($modLog)->fanout();
     }
@@ -60,7 +60,7 @@ class ModLogObserver
      *
      * @return void
      */
-    public function forceDeleted(ModLog $modLog)
+    public function forceDeleted(ModLog $modLog): void
     {
         ModLogService::boot()->load($modLog)->unfanout();
     }

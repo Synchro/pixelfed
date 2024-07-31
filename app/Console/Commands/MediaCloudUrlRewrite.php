@@ -39,7 +39,7 @@ class MediaCloudUrlRewrite extends Command implements PromptsForMissingInput
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $this->preflightCheck();
         $this->bootMessage();

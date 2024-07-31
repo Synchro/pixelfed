@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class FollowRequest extends Model
@@ -15,22 +16,22 @@ class FollowRequest extends Model
         ];
     }
 
-    public function actor()
+    public function actor(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'follower_id', 'id');
     }
 
-    public function follower()
+    public function follower(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'follower_id', 'id');
     }
 
-    public function following()
+    public function following(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'following_id', 'id');
     }
 
-    public function target()
+    public function target(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'following_id', 'id');
     }

@@ -37,7 +37,7 @@ class FixRemotePostCount extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         Profile::whereNotNull('domain')->chunk(50, function ($profiles) {
             foreach ($profiles as $profile) {

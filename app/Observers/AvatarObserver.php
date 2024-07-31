@@ -21,7 +21,7 @@ class AvatarObserver
      *
      * @return void
      */
-    public function created(Avatar $avatar)
+    public function created(Avatar $avatar): void
     {
         //
     }
@@ -31,7 +31,7 @@ class AvatarObserver
      *
      * @return void
      */
-    public function updated(Avatar $avatar)
+    public function updated(Avatar $avatar): void
     {
         AccountService::del($avatar->profile_id);
     }
@@ -41,7 +41,7 @@ class AvatarObserver
      *
      * @return void
      */
-    public function deleted(Avatar $avatar)
+    public function deleted(Avatar $avatar): void
     {
         //
     }
@@ -76,7 +76,7 @@ class AvatarObserver
      *
      * @return void
      */
-    public function restored(Avatar $avatar)
+    public function restored(Avatar $avatar): void
     {
         //
     }
@@ -86,7 +86,7 @@ class AvatarObserver
      *
      * @return void
      */
-    public function forceDeleted(Avatar $avatar)
+    public function forceDeleted(Avatar $avatar): void
     {
         //
     }

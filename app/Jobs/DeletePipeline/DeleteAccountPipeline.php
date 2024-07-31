@@ -67,7 +67,7 @@ class DeleteAccountPipeline implements ShouldQueue
         $this->user = $user;
     }
 
-    public function handle()
+    public function handle(): void
     {
         $user = $this->user;
         $profile = $user->profile;

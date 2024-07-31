@@ -48,7 +48,7 @@ class InboxValidator implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $username = $this->username;
         $headers = $this->headers;

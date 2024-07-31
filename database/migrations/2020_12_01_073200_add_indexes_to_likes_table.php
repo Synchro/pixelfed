@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('likes', function (Blueprint $table) {
             $table->index('profile_id', 'likes_profile_id_index');
@@ -24,7 +24,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('likes', function (Blueprint $table) {
             $table->dropIndex('likes_profile_id_index');

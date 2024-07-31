@@ -51,7 +51,7 @@ class RemoteAvatarFetch implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $profile = $this->profile;
 

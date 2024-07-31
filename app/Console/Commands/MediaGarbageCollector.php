@@ -37,7 +37,7 @@ class MediaGarbageCollector extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $limit = 500;
 

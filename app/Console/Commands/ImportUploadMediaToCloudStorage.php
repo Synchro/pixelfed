@@ -27,7 +27,7 @@ class ImportUploadMediaToCloudStorage extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         if (
             (bool) config('import.instagram.storage.cloud.enabled') === false ||

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 use Pixelfed\Snowflake\HasSnowflakePrimary;
 use Storage;
@@ -28,7 +29,7 @@ class StoryItem extends Model
 
     protected $visible = ['id'];
 
-    public function story()
+    public function story(): BelongsTo
     {
         return $this->belongsTo(Story::class);
     }

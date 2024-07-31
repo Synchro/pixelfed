@@ -30,13 +30,13 @@ class UndoFollowTest extends TestCase
     }
 
     /** @test */
-    public function valid_undo_follow()
+    public function valid_undo_follow(): void
     {
         $this->assertTrue(UndoFollow::validate($this->validUndo));
     }
 
     /** @test */
-    public function invalid_undo_follow()
+    public function invalid_undo_follow(): void
     {
         $this->assertFalse(UndoFollow::validate($this->invalidUndo));
     }

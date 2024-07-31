@@ -17,13 +17,13 @@ class StoryValidationTest extends TestCase
     }
 
     /** @test */
-    public function schemaTest()
+    public function schemaTest(): void
     {
         $this->assertTrue(StoryValidator::validate($this->activity));
     }
 
     /** @test */
-    public function invalidContext()
+    public function invalidContext(): void
     {
         $activity = $this->activity;
         unset($activity['@context']);
@@ -32,7 +32,7 @@ class StoryValidationTest extends TestCase
     }
 
     /** @test */
-    public function missingContext()
+    public function missingContext(): void
     {
         $activity = $this->activity;
         unset($activity['@context']);
@@ -40,7 +40,7 @@ class StoryValidationTest extends TestCase
     }
 
     /** @test */
-    public function missingId()
+    public function missingId(): void
     {
         $activity = $this->activity;
         unset($activity['id']);
@@ -48,7 +48,7 @@ class StoryValidationTest extends TestCase
     }
 
     /** @test */
-    public function missingType()
+    public function missingType(): void
     {
         $activity = $this->activity;
         unset($activity['type']);
@@ -56,7 +56,7 @@ class StoryValidationTest extends TestCase
     }
 
     /** @test */
-    public function invalidType()
+    public function invalidType(): void
     {
         $activity = $this->activity;
         $activity['type'] = 'Store';
@@ -64,7 +64,7 @@ class StoryValidationTest extends TestCase
     }
 
     /** @test */
-    public function missingTo()
+    public function missingTo(): void
     {
         $activity = $this->activity;
         unset($activity['to']);
@@ -72,7 +72,7 @@ class StoryValidationTest extends TestCase
     }
 
     /** @test */
-    public function missingTimestamps()
+    public function missingTimestamps(): void
     {
         $activity = $this->activity;
         unset($activity['published']);

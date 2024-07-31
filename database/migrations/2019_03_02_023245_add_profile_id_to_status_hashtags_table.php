@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('status_hashtags', function (Blueprint $table) {
             $table->bigInteger('profile_id')->unsigned()->nullable()->index()->after('hashtag_id');
@@ -23,7 +23,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('status_hashtags', function (Blueprint $table) {
             $table->dropColumn('profile_id');

@@ -40,7 +40,7 @@ class RemoteFollowPipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $follower = $this->follower;
         $url = $this->url;

@@ -20,7 +20,7 @@ class MediaFixLocalFilesystemCleanupPipeline implements ShouldQueue
 
     public $maxExceptions = 1;
 
-    public function handle()
+    public function handle(): void
     {
         if ((bool) config_cache('pixelfed.cloud_storage') == false) {
             // Only run if cloud storage is enabled

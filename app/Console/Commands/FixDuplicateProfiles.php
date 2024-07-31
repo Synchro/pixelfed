@@ -63,7 +63,7 @@ class FixDuplicateProfiles extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $duplicates = DB::table('profiles')
             ->whereNull('domain')

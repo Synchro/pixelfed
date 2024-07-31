@@ -27,7 +27,7 @@ class UserRegistrationMagicLink extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $username = $this->option('username');
         $email = $this->option('email');

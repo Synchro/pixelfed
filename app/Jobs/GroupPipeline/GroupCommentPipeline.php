@@ -31,7 +31,7 @@ class GroupCommentPipeline implements ShouldQueue
         $this->groupPost = $groupPost;
     }
 
-    public function handle()
+    public function handle(): void
     {
         if ($this->status->group_id == null || $this->comment->group_id == null) {
             return;

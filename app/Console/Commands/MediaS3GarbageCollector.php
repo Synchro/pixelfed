@@ -42,7 +42,7 @@ class MediaS3GarbageCollector extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $enabled = (bool) config_cache('pixelfed.cloud_storage');
         if (! $enabled) {

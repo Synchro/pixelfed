@@ -46,7 +46,7 @@ class ImageS3UploadPipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $media = $this->media;
 

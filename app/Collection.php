@@ -2,6 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Model;
 
 class Collection extends Model
@@ -19,17 +22,17 @@ class Collection extends Model
 
     public $dates = ['published_at'];
 
-    public function profile()
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class);
     }
 
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(CollectionItem::class);
     }
 
-    public function posts()
+    public function posts(): HasManyThrough
     {
         return $this->hasManyThrough(
             Status::class,

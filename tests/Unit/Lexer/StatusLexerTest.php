@@ -23,7 +23,7 @@ class StatusLexerTest extends TestCase
         $this->autolink = Autolink::create()->autolink($this->status);
     }
 
-    public function testLexerExtractor()
+    public function testLexerExtractor(): void
     {
         $expected = [
             'hashtags' => [
@@ -58,14 +58,14 @@ class StatusLexerTest extends TestCase
         $this->assertEquals($this->entities, $expected);
     }
 
-    public function testAutolink()
+    public function testAutolink(): void
     {
         $expected = '<a class="u-url mention" href="https://pixelfed.dev/pixelfed" rel="external nofollow noopener" target="_blank">@pixelfed</a> hi, really like the website! <a href="https://pixelfed.dev/discover/tags/píxelfed?src=hash" title="#píxelfed" class="u-url hashtag" rel="external nofollow noopener">#píxelfed</a>';
         $this->assertEquals($this->autolink, $expected);
     }
 
     /** @test * */
-    public function remoteMention()
+    public function remoteMention(): void
     {
         $expected = [
             'hashtags' => [
@@ -109,7 +109,7 @@ class StatusLexerTest extends TestCase
     }
 
     /** @test * */
-    public function mentionLimit()
+    public function mentionLimit(): void
     {
         $text = '@test1 @test @test2 @test3 @test4 @test5 @test6 @test7 @test8 @test9 @test10 @test11 @test12 @test13 @test14 @test15 @test16 @test17 @test18 @test19 test post';
 
@@ -119,7 +119,7 @@ class StatusLexerTest extends TestCase
     }
 
     /** @test * */
-    public function hashtagLimit()
+    public function hashtagLimit(): void
     {
         $text = '#hashtag0 #hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5 #hashtag6 #hashtag7 #hashtag8 #hashtag9 #hashtag10 #hashtag11 #hashtag12 #hashtag13 #hashtag14 #hashtag15 #hashtag16 #hashtag17 #hashtag18 #hashtag19 #hashtag20 #hashtag21 #hashtag22 #hashtag23 #hashtag24 #hashtag25 #hashtag26 #hashtag27 #hashtag28 #hashtag29 #hashtag30 #hashtag31 #hashtag0 #hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5 #hashtag6 #hashtag7 #hashtag8 #hashtag9 #hashtag10 #hashtag11 #hashtag12 #hashtag13 #hashtag14 #hashtag15 #hashtag16 #hashtag17 #hashtag18 #hashtag19 #hashtag20 #hashtag21 #hashtag22 #hashtag23 #hashtag24 #hashtag25 #hashtag26 #hashtag27 #hashtag28 #hashtag29 #hashtag30 #hashtag31';
 
@@ -129,7 +129,7 @@ class StatusLexerTest extends TestCase
     }
 
     /** @test * */
-    public function linkLimit()
+    public function linkLimit(): void
     {
         $text = 'https://example.org https://example.net https://example.com https://example.com https://example.net';
 

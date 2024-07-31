@@ -2,13 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Model;
 
 class Hashtag extends Model
 {
     public $fillable = ['name', 'slug'];
 
-    public function posts()
+    public function posts(): HasManyThrough
     {
         return $this->hasManyThrough(
             Status::class,

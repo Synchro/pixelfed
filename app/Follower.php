@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Follower extends Model
@@ -12,17 +13,17 @@ class Follower extends Model
 
     const FOLLOW_PER_HOUR = 150;
 
-    public function actor()
+    public function actor(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
 
-    public function target()
+    public function target(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'following_id', 'id');
     }
 
-    public function profile()
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'following_id', 'id');
     }

@@ -37,7 +37,7 @@ class CatchUnoptimizedMedia extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         Media::whereNull('processed_at')
             ->where('created_at', '>', now()->subHours(1))

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Circle extends Model
@@ -15,7 +17,7 @@ class Circle extends Model
         'active',
     ];
 
-    public function members()
+    public function members(): HasManyThrough
     {
         return $this->hasManyThrough(
             Profile::class,
@@ -27,7 +29,7 @@ class Circle extends Model
         );
     }
 
-    public function owner()
+    public function owner(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'profile_id');
     }

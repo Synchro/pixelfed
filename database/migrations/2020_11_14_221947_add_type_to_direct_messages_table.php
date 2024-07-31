@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('direct_messages', function (Blueprint $table) {
             $table->string('type')->default('text')->nullable()->index()->after('from_id');
@@ -25,7 +25,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('direct_messages', function (Blueprint $table) {
             $table->dropColumn(['type', 'is_hidden', 'meta']);

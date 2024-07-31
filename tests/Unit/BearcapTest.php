@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class BearcapTest extends TestCase
 {
     /** @test */
-    public function validTest()
+    public function validTest(): void
     {
         $str = 'bear:?t=LpVypnEUdHhwwgXE9tTqEwrtPvmLjqYaPexqyXnVo1flSfJy5AYMCdRPiFRmqld2&u=https://pixelfed.test/stories/admin/337892163734081536';
         $expected = [
@@ -20,7 +20,7 @@ class BearcapTest extends TestCase
     }
 
     /** @test */
-    public function invalidTokenParameterName()
+    public function invalidTokenParameterName(): void
     {
         $str = 'bear:?token=LpVypnEUdHhwwgXE9tTqEwrtPvmLjqYaPexqyXnVo1flSfJy5AYMCdRPiFRmqld2&u=https://pixelfed.test/stories/admin/337892163734081536';
         $actual = Bearcap::decode($str);
@@ -28,7 +28,7 @@ class BearcapTest extends TestCase
     }
 
     /** @test */
-    public function invalidUrlParameterName()
+    public function invalidUrlParameterName(): void
     {
         $str = 'bear:?t=LpVypnEUdHhwwgXE9tTqEwrtPvmLjqYaPexqyXnVo1flSfJy5AYMCdRPiFRmqld2&url=https://pixelfed.test/stories/admin/337892163734081536';
         $actual = Bearcap::decode($str);
@@ -36,7 +36,7 @@ class BearcapTest extends TestCase
     }
 
     /** @test */
-    public function invalidScheme()
+    public function invalidScheme(): void
     {
         $str = 'bearcap:?t=LpVypnEUdHhwwgXE9tTqEwrtPvmLjqYaPexqyXnVo1flSfJy5AYMCdRPiFRmqld2&url=https://pixelfed.test/stories/admin/337892163734081536';
         $actual = Bearcap::decode($str);
@@ -44,7 +44,7 @@ class BearcapTest extends TestCase
     }
 
     /** @test */
-    public function missingToken()
+    public function missingToken(): void
     {
         $str = 'bear:?u=https://pixelfed.test/stories/admin/337892163734081536';
         $actual = Bearcap::decode($str);
@@ -52,7 +52,7 @@ class BearcapTest extends TestCase
     }
 
     /** @test */
-    public function missingUrl()
+    public function missingUrl(): void
     {
         $str = 'bear:?t=LpVypnEUdHhwwgXE9tTqEwrtPvmLjqYaPexqyXnVo1flSfJy5AYMCdRPiFRmqld2';
         $actual = Bearcap::decode($str);
@@ -60,7 +60,7 @@ class BearcapTest extends TestCase
     }
 
     /** @test */
-    public function invalidHttpUrl()
+    public function invalidHttpUrl(): void
     {
         $str = 'bear:?t=LpVypnEUdHhwwgXE9tTqEwrtPvmLjqYaPexqyXnVo1flSfJy5AYMCdRPiFRmqld2&u=http://pixelfed.test/stories/admin/337892163734081536';
         $actual = Bearcap::decode($str);
@@ -68,7 +68,7 @@ class BearcapTest extends TestCase
     }
 
     /** @test */
-    public function invalidUrlSchema()
+    public function invalidUrlSchema(): void
     {
         $str = 'bear:?t=LpVypnEUdHhwwgXE9tTqEwrtPvmLjqYaPexqyXnVo1flSfJy5AYMCdRPiFRmqld2&u=phar://pixelfed.test/stories/admin/337892163734081536';
         $actual = Bearcap::decode($str);

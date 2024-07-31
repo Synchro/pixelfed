@@ -41,7 +41,7 @@ class AvatarStorage extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $this->info('Pixelfed Avatar Storage Manager');
         $this->line(' ');

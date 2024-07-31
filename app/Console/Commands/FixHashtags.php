@@ -36,7 +36,7 @@ class FixHashtags extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
 
         $this->info('       ____  _           ______         __  ');

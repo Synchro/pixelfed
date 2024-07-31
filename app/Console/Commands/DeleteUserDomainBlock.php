@@ -29,7 +29,7 @@ class DeleteUserDomainBlock extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $domain = text('Enter domain you want to unblock');
         $domain = strtolower($domain);

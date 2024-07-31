@@ -2,11 +2,13 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
 class ImportJob extends Model
 {
-    public function profile()
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'profile_id');
     }
@@ -16,7 +18,7 @@ class ImportJob extends Model
         return url("/i/import/job/{$this->uuid}/{$this->stage}");
     }
 
-    public function files()
+    public function files(): HasMany
     {
         return $this->hasMany(ImportData::class, 'job_id');
     }

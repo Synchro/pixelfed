@@ -36,7 +36,7 @@ class NewStatusPipeline implements ShouldQueue
         $this->gp = $gp;
     }
 
-    public function handle()
+    public function handle(): void
     {
         $status = $this->status;
 

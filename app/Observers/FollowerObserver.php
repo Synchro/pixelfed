@@ -14,7 +14,7 @@ class FollowerObserver
      *
      * @return void
      */
-    public function created(Follower $follower)
+    public function created(Follower $follower): void
     {
         if (config('instance.timeline.home.cached')) {
             Cache::forget('pf:timelines:home:'.$follower->profile_id);
@@ -29,7 +29,7 @@ class FollowerObserver
      *
      * @return void
      */
-    public function deleted(Follower $follower)
+    public function deleted(Follower $follower): void
     {
         FollowerService::remove($follower->profile_id, (string) $follower->following_id);
     }
@@ -39,7 +39,7 @@ class FollowerObserver
      *
      * @return void
      */
-    public function forceDeleted(Follower $follower)
+    public function forceDeleted(Follower $follower): void
     {
         FollowerService::remove($follower->profile_id, (string) $follower->following_id);
     }

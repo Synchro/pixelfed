@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +21,7 @@ class CuratedRegisterActivity extends Model
         ];
     }
 
-    public function application()
+    public function application(): BelongsTo
     {
         return $this->belongsTo(CuratedRegister::class, 'register_id');
     }

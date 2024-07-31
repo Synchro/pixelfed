@@ -13,7 +13,7 @@ class DirectoryProfile extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $account = AccountService::get($this->id, true);
         if (! $account) {

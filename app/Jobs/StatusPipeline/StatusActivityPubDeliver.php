@@ -45,7 +45,7 @@ class StatusActivityPubDeliver implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $status = $this->status;
         $profile = $status->profile;

@@ -48,7 +48,7 @@ class FetchNodeinfoPipeline implements ShouldBeUniqueUntilProcessing, ShouldQueu
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $instance = $this->instance;
 

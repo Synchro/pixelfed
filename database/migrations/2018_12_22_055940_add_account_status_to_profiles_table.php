@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         // Drop old columns, fix stories
         if (Schema::hasColumn('profiles', 'hub_url')) {
@@ -45,7 +45,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('profiles', function (Blueprint $table) {
             $table->string('verify_token')->nullable();

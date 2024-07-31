@@ -41,7 +41,7 @@ class FollowAcceptPipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $follow = $this->followRequest;
         $actor = $follow->actor;

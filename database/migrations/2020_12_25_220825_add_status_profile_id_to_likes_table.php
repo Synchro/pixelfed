@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('likes', function (Blueprint $table) {
             $table->bigInteger('status_profile_id')->nullable()->unsigned()->index()->after('status_id');
@@ -25,7 +25,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('likes', function (Blueprint $table) {
             $table->dropColumn(['status_profile_id', 'is_comment']);

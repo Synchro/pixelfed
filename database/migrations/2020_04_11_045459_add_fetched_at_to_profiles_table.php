@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('profiles', function (Blueprint $table) {
             $table->timestamp('last_fetched_at')->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('profiles', function (Blueprint $table) {
             $table->dropColumn(['last_fetched_at', 'status_count', 'followers_count', 'following_count', 'webfinger', 'avatar_url']);

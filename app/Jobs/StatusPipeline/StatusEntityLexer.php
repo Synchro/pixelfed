@@ -56,7 +56,7 @@ class StatusEntityLexer implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $profile = $this->status->profile;
         $status = $this->status;

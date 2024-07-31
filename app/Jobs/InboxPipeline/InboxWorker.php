@@ -44,7 +44,7 @@ class InboxWorker implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $profile = null;
         $headers = $this->headers;

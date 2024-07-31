@@ -23,7 +23,7 @@ class MediaStoragePipeline implements ShouldQueue
         $this->media = $media;
     }
 
-    public function handle()
+    public function handle(): void
     {
         MediaStorageService::store($this->media);
     }

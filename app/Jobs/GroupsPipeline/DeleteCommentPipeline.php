@@ -40,7 +40,7 @@ class DeleteCommentPipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $parent = $this->parent;
         $parent->reply_count = GroupComment::whereStatusId($parent->id)->count();

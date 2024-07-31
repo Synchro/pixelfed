@@ -36,7 +36,7 @@ class UserUnsuspend extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $id = $this->argument('id');
         if (ctype_digit($id) == true) {

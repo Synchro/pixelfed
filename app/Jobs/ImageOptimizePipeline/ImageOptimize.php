@@ -37,7 +37,7 @@ class ImageOptimize implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $media = $this->media;
         $path = storage_path('app/'.$media->media_path);

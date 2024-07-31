@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\HasSnowflakePrimary;
 use App\Profile;
 use App\Services\GroupService;
@@ -38,12 +40,12 @@ class Group extends Model
         return $this->url().$suffix;
     }
 
-    public function members()
+    public function members(): HasMany
     {
         return $this->hasMany(GroupMember::class);
     }
 
-    public function admin()
+    public function admin(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'profile_id');
     }

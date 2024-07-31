@@ -39,7 +39,7 @@ class UserAdmin extends Command implements PromptsForMissingInput
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $id = $this->argument('username');
 

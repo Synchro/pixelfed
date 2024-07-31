@@ -33,7 +33,7 @@ class TransformImports extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         if (! config('import.instagram.enabled')) {
             return;

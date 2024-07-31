@@ -2,6 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,27 +26,27 @@ class Notification extends Model
         ];
     }
 
-    public function actor()
+    public function actor(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'actor_id', 'id');
     }
 
-    public function profile()
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
 
-    public function item()
+    public function item(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function status()
+    public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'item_id', 'id');
     }
 
-    public function tag()
+    public function tag(): HasOne
     {
         return $this->hasOne(MediaTag::class, 'item_id', 'id');
     }

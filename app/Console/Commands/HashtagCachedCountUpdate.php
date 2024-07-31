@@ -25,7 +25,7 @@ class HashtagCachedCountUpdate extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $limit = $this->option('limit');
         $tags = Hashtag::whereNull('cached_count')->limit($limit)->get();

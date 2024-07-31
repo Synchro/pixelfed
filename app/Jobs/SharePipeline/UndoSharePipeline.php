@@ -32,7 +32,7 @@ class UndoSharePipeline implements ShouldQueue
         $this->status = $status;
     }
 
-    public function handle()
+    public function handle(): void
     {
         $status = $this->status;
         $actor = $status->profile;

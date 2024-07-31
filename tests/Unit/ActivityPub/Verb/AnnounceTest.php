@@ -147,32 +147,32 @@ class AnnounceTest extends TestCase
     }
 
     /** @test */
-    public function basic_accept()
+    public function basic_accept(): void
     {
         $this->assertTrue(Announce::validate($this->validAnnounce));
     }
 
     /** @test */
-    public function invalid_accept()
+    public function invalid_accept(): void
     {
         $this->assertFalse(Announce::validate($this->invalidAnnounce));
     }
 
     /** @test */
-    public function context_missing()
+    public function context_missing(): void
     {
         $this->assertFalse(Announce::validate($this->contextMissing));
     }
 
     /** @test */
-    public function invalid_actor()
+    public function invalid_actor(): void
     {
         $this->assertFalse(Announce::validate($this->invalidActor));
         $this->assertFalse(Announce::validate($this->invalidActor2));
     }
 
     /** @test */
-    public function mastodon_announce()
+    public function mastodon_announce(): void
     {
         $this->assertTrue(Announce::validate($this->mastodonAnnounce));
     }

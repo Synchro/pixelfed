@@ -72,7 +72,7 @@ class ImportCities extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $old_memory_limit = ini_get('memory_limit');
         ini_set('memory_limit', '256M');

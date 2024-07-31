@@ -31,7 +31,7 @@ class JoinRejected implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $member = $this->member;
         $member->rejected_at = now();

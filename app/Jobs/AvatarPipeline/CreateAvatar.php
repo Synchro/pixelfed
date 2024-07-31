@@ -73,7 +73,7 @@ class CreateAvatar implements ShouldBeUniqueUntilProcessing, ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $profile = $this->profile;
         $isRemote = (bool) $profile->private_key == null;

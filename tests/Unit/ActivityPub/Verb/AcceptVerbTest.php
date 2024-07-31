@@ -80,19 +80,19 @@ class AcceptVerbTest extends TestCase
     }
 
     /** @test */
-    public function basic_accept()
+    public function basic_accept(): void
     {
         $this->assertTrue(Accept::validate($this->validAccept));
     }
 
     /** @test */
-    public function invalid_accept()
+    public function invalid_accept(): void
     {
         $this->assertFalse(Accept::validate($this->invalidAccept));
     }
 
     /** @test */
-    public function mastodon_accept()
+    public function mastodon_accept(): void
     {
         $this->assertTrue(Accept::validate($this->mastodonAccept));
     }

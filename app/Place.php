@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
 class Place extends Model
@@ -13,7 +14,7 @@ class Place extends Model
         return url('/discover/places/'.$this->id.'/'.$this->slug);
     }
 
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany(Status::class);
     }
@@ -23,7 +24,7 @@ class Place extends Model
         return $this->posts()->count();
     }
 
-    public function statuses()
+    public function statuses(): HasMany
     {
         return $this->hasMany(Status::class, 'id', 'place_id');
     }

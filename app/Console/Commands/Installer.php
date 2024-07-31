@@ -39,7 +39,7 @@ class Installer extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->welcome();
     }

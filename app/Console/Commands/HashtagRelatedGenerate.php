@@ -43,7 +43,7 @@ class HashtagRelatedGenerate extends Command implements PromptsForMissingInput
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $tag = $this->argument('tag');
         $hashtag = Hashtag::whereName($tag)->orWhere('slug', $tag)->first();

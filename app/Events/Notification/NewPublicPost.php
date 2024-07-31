@@ -32,7 +32,7 @@ class NewPublicPost implements ShouldBroadcastNow
         return 'status';
     }
 
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
         return new Channel('firehost.public');
     }

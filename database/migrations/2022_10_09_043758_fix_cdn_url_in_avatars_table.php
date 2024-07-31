@@ -12,7 +12,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         $baseUrl = 'https://'.config('pixelfed.domain.app');
         Avatar::whereNotNull('cdn_url')
@@ -33,7 +33,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
     }
 };

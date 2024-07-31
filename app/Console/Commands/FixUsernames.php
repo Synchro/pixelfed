@@ -39,7 +39,7 @@ class FixUsernames extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->line(' ');
         $this->info('Collecting data ...');

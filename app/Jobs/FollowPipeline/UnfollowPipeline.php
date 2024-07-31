@@ -41,7 +41,7 @@ class UnfollowPipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $actor = $this->actor;
         $target = $this->target;

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class UserFilter extends Model
@@ -29,12 +30,12 @@ class UserFilter extends Model
             ->pluck('filterable_id');
     }
 
-    public function instance()
+    public function instance(): BelongsTo
     {
         return $this->belongsTo(Instance::class, 'filterable_id');
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'user_id');
     }

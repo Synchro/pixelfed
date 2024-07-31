@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('oauth_clients', function (Blueprint $table) {
             if (Schema::hasTable('oauth_clients') && Schema::hasColumn('oauth_clients', 'provider') == false) {
@@ -25,7 +25,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         if (Schema::hasTable('oauth_clients')) {
             Schema::table('oauth_clients', function (Blueprint $table) {

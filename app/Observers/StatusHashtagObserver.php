@@ -16,7 +16,7 @@ class StatusHashtagObserver implements ShouldHandleEventsAfterCommit
      *
      * @return void
      */
-    public function created(StatusHashtag $hashtag)
+    public function created(StatusHashtag $hashtag): void
     {
         StatusHashtagService::set($hashtag->hashtag_id, $hashtag->status_id);
         DB::table('hashtags')->where('id', $hashtag->hashtag_id)->increment('cached_count');
@@ -30,7 +30,7 @@ class StatusHashtagObserver implements ShouldHandleEventsAfterCommit
      *
      * @return void
      */
-    public function updated(StatusHashtag $hashtag)
+    public function updated(StatusHashtag $hashtag): void
     {
         StatusHashtagService::set($hashtag->hashtag_id, $hashtag->status_id);
     }
@@ -40,7 +40,7 @@ class StatusHashtagObserver implements ShouldHandleEventsAfterCommit
      *
      * @return void
      */
-    public function deleted(StatusHashtag $hashtag)
+    public function deleted(StatusHashtag $hashtag): void
     {
         StatusHashtagService::del($hashtag->hashtag_id, $hashtag->status_id);
         DB::table('hashtags')->where('id', $hashtag->hashtag_id)->decrement('cached_count');
@@ -54,7 +54,7 @@ class StatusHashtagObserver implements ShouldHandleEventsAfterCommit
      *
      * @return void
      */
-    public function restored(StatusHashtag $hashtag)
+    public function restored(StatusHashtag $hashtag): void
     {
         StatusHashtagService::set($hashtag->hashtag_id, $hashtag->status_id);
     }
@@ -64,7 +64,7 @@ class StatusHashtagObserver implements ShouldHandleEventsAfterCommit
      *
      * @return void
      */
-    public function forceDeleted(StatusHashtag $hashtag)
+    public function forceDeleted(StatusHashtag $hashtag): void
     {
         StatusHashtagService::del($hashtag->hashtag_id, $hashtag->status_id);
     }

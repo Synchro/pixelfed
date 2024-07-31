@@ -43,7 +43,7 @@ class MentionPipeline implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $status = $this->status;
         $mention = $this->mention;

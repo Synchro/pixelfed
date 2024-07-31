@@ -32,7 +32,7 @@ class InstanceManager extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         $action = select(
             'What action do you want to perform?',

@@ -50,7 +50,7 @@ class UserObserver
      *
      * @return void
      */
-    public function deleted(User $user)
+    public function deleted(User $user): void
     {
         FollowerService::delCache($user->profile_id);
     }

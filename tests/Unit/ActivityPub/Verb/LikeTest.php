@@ -45,7 +45,7 @@ class LikeTest extends TestCase
     }
 
     /** @test */
-    public function basic_like()
+    public function basic_like(): void
     {
         $this->assertTrue(Like::validate($this->basicLike));
     }

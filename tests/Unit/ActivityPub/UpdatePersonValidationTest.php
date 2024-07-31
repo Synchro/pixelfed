@@ -17,13 +17,13 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function schemaTest()
+    public function schemaTest(): void
     {
         $this->assertTrue(UpdatePersonValidator::validate($this->activity));
     }
 
     /** @test */
-    public function invalidContext()
+    public function invalidContext(): void
     {
         $activity = $this->activity;
         unset($activity['@context']);
@@ -32,7 +32,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function missingContext()
+    public function missingContext(): void
     {
         $activity = $this->activity;
         unset($activity['@context']);
@@ -40,7 +40,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function missingId()
+    public function missingId(): void
     {
         $activity = $this->activity;
         unset($activity['id']);
@@ -48,7 +48,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function missingType()
+    public function missingType(): void
     {
         $activity = $this->activity;
         unset($activity['type']);
@@ -56,7 +56,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function invalidType()
+    public function invalidType(): void
     {
         $activity = $this->activity;
         $activity['type'] = 'Create';
@@ -64,7 +64,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function invalidObjectType()
+    public function invalidObjectType(): void
     {
         $activity = $this->activity;
         $activity['object']['type'] = 'Note';
@@ -72,7 +72,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function invalidActorMatchingObjectId()
+    public function invalidActorMatchingObjectId(): void
     {
         $activity = $this->activity;
         $activity['object']['id'] = 'https://example.org/@user';
@@ -80,7 +80,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function invalidActorUrlMatchingObjectId()
+    public function invalidActorUrlMatchingObjectId(): void
     {
         $activity = $this->activity;
         $activity['object']['id'] = $activity['object']['id'].'test';
@@ -88,7 +88,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function missingActorPublicKey()
+    public function missingActorPublicKey(): void
     {
         $activity = $this->activity;
         unset($activity['object']['publicKey']);
@@ -96,7 +96,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function invalidActorPublicKey()
+    public function invalidActorPublicKey(): void
     {
         $activity = $this->activity;
         $activity['object']['publicKey'] = null;
@@ -104,7 +104,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function invalidActorPublicKeyId()
+    public function invalidActorPublicKeyId(): void
     {
         $activity = $this->activity;
         $activity['object']['publicKey']['id'] = null;
@@ -112,7 +112,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function invalidActorPublicKeyIdHost()
+    public function invalidActorPublicKeyIdHost(): void
     {
         $activity = $this->activity;
         $activity['object']['publicKey']['id'] = 'https://example.org/test';
@@ -120,7 +120,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function invalidActorAvatar()
+    public function invalidActorAvatar(): void
     {
         $activity = $this->activity;
         $activity['object']['icon']['type'] = 'TikTok';
@@ -128,7 +128,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function invalidActorAvatarMediaType()
+    public function invalidActorAvatarMediaType(): void
     {
         $activity = $this->activity;
         $activity['object']['icon']['mediaType'] = 'video/mp4';
@@ -136,7 +136,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function validActorAvatarMediaTypePng()
+    public function validActorAvatarMediaTypePng(): void
     {
         $activity = $this->activity;
         $activity['object']['icon']['mediaType'] = 'image/png';
@@ -144,7 +144,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function validActorAvatarMediaTypeJpeg()
+    public function validActorAvatarMediaTypeJpeg(): void
     {
         $activity = $this->activity;
         $activity['object']['icon']['mediaType'] = 'image/jpeg';
@@ -152,7 +152,7 @@ class UpdatePersonValidationTest extends TestCase
     }
 
     /** @test */
-    public function validActorAvatarMediaUrl()
+    public function validActorAvatarMediaUrl(): void
     {
         $activity = $this->activity;
         $activity['object']['icon']['url'] = 'http://example.org/avatar.png';

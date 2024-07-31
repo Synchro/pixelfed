@@ -36,7 +36,7 @@ class UserTable extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $limit = $this->argument('limit');
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Services\AccountService;
 use App\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,12 +24,12 @@ class ParentalControls extends Model
         ];
     }
 
-    public function parent()
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(User::class, 'parent_id');
     }
 
-    public function child()
+    public function child(): BelongsTo
     {
         return $this->belongsTo(User::class, 'child_id');
     }

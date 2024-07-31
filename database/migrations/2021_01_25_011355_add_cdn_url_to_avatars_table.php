@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('avatars', function (Blueprint $table) {
             $table->string('cdn_url')->unique()->index()->nullable()->after('remote_url');
@@ -26,7 +26,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('avatars', function (Blueprint $table) {
             $table->dropColumn(['cdn_url', 'size', 'is_remote']);

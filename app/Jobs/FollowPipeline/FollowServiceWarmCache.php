@@ -53,7 +53,7 @@ class FollowServiceWarmCache implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $id = $this->profileId;
 

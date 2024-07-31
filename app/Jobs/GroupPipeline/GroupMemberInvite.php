@@ -32,7 +32,7 @@ class GroupMemberInvite implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $invite = $this->invite;
         $actor = Profile::find($invite->from_profile_id);

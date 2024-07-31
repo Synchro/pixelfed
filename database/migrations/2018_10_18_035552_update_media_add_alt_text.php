@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('media', function (Blueprint $table) {
             $table->string('license')->nullable()->after('filter_class');
@@ -27,7 +27,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('media', function (Blueprint $table) {
             $table->dropColumn(['license', 'is_nsfw', 'version', 'remote_media', 'remote_url']);

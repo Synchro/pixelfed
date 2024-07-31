@@ -37,7 +37,7 @@ class FixStatusCount extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         if (! $this->confirm('Are you sure you want to run the fix status command?')) {
             return;

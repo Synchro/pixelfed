@@ -29,7 +29,7 @@ class DecrementPostCount implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // deprecated
 

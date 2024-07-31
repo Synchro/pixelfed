@@ -21,7 +21,7 @@ class UserFilterObserver
      *
      * @return void
      */
-    public function created(UserFilter $userFilter)
+    public function created(UserFilter $userFilter): void
     {
         $this->filterCreate($userFilter);
     }
@@ -31,7 +31,7 @@ class UserFilterObserver
      *
      * @return void
      */
-    public function updated(UserFilter $userFilter)
+    public function updated(UserFilter $userFilter): void
     {
         $this->filterCreate($userFilter);
     }
@@ -41,7 +41,7 @@ class UserFilterObserver
      *
      * @return void
      */
-    public function deleted(UserFilter $userFilter)
+    public function deleted(UserFilter $userFilter): void
     {
         $this->filterDelete($userFilter);
     }
@@ -51,7 +51,7 @@ class UserFilterObserver
      *
      * @return void
      */
-    public function restored(UserFilter $userFilter)
+    public function restored(UserFilter $userFilter): void
     {
         $this->filterCreate($userFilter);
     }
@@ -61,7 +61,7 @@ class UserFilterObserver
      *
      * @return void
      */
-    public function forceDeleted(UserFilter $userFilter)
+    public function forceDeleted(UserFilter $userFilter): void
     {
         $this->filterDelete($userFilter);
     }

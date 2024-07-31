@@ -41,7 +41,7 @@ class StoryFetch implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $activity = $this->activity;
         $activityId = $activity['id'];

@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('statuses', function (Blueprint $table) {
             $table->unsignedInteger('reply_count')->nullable();
@@ -24,7 +24,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('statuses', function (Blueprint $table) {
             $table->dropColumn(['reply_count', 'comments_disabled']);

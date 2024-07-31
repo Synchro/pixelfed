@@ -25,7 +25,7 @@ class MediaSyncLicensePipeline implements ShouldQueue
         $this->licenseId = $licenseId;
     }
 
-    public function handle()
+    public function handle(): void
     {
         $licenseId = $this->licenseId;
 

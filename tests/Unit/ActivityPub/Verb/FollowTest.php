@@ -45,7 +45,7 @@ class FollowTest extends TestCase
     }
 
     /** @test */
-    public function basic_follow()
+    public function basic_follow(): void
     {
         $this->assertTrue(Follow::validate($this->basicFollow));
     }

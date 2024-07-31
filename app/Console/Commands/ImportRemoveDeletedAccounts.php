@@ -29,7 +29,7 @@ class ImportRemoveDeletedAccounts extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         $skipMinId = Cache::remember(self::CACHE_KEY, 864000, function () {
             return 1;

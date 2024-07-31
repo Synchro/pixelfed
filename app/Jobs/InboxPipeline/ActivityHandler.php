@@ -42,7 +42,7 @@ class ActivityHandler implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         (new Inbox($this->headers, $this->username, $this->payload))->handle();
 
