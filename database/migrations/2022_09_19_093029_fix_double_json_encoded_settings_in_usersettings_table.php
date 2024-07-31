@@ -3,7 +3,7 @@
 use App\UserSetting;
 use Illuminate\Database\Migrations\Migration;
 
-class FixDoubleJsonEncodedSettingsInUsersettingsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -33,4 +33,4 @@ class FixDoubleJsonEncodedSettingsInUsersettingsTable extends Migration
     {
 
     }
-}
+};
