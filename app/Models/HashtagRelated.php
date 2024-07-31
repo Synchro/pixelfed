@@ -12,13 +12,16 @@ class HashtagRelated extends Model
     protected $guarded = [];
 
     /**
-     * The attributes that should be mutated to dates and other custom formats.
+     * Get the attributes that should be cast.
      *
-     * @var array
+     * @return array<string, string>
      */
-    protected $casts = [
-        'related_tags' => 'array',
-        'last_calculated_at' => 'datetime',
-        'last_moderated_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'related_tags' => 'array',
+            'last_calculated_at' => 'datetime',
+            'last_moderated_at' => 'datetime',
+        ];
+    }
 }

@@ -9,17 +9,6 @@ class Avatar extends Model
 {
     use SoftDeletes;
 
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'deleted_at' => 'datetime',
-        'last_fetched_at' => 'datetime',
-        'last_processed_at' => 'datetime',
-    ];
-
     protected $guarded = [];
 
     protected $visible = [
@@ -28,6 +17,20 @@ class Avatar extends Model
         'media_path',
         'size',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'deleted_at' => 'datetime',
+            'last_fetched_at' => 'datetime',
+            'last_processed_at' => 'datetime',
+        ];
+    }
 
     public function profile()
     {

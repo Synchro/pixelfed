@@ -22,17 +22,20 @@ class Profile extends Model
      */
     public $incrementing = false;
 
-    protected $casts = [
-        'deleted_at' => 'datetime',
-        'last_fetched_at' => 'datetime',
-        'last_status_at' => 'datetime',
-    ];
-
     protected $hidden = ['private_key'];
 
     protected $visible = ['id', 'user_id', 'username', 'name'];
 
     protected $guarded = [];
+
+    protected function casts(): array
+    {
+        return [
+            'deleted_at' => 'datetime',
+            'last_fetched_at' => 'datetime',
+            'last_status_at' => 'datetime',
+        ];
+    }
 
     public function user()
     {

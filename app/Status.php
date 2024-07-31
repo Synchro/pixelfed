@@ -24,17 +24,20 @@ class Status extends Model
      */
     public $incrementing = false;
 
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'deleted_at' => 'datetime',
-        'edited_at' => 'datetime',
-    ];
-
     protected $guarded = [];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'deleted_at' => 'datetime',
+            'edited_at' => 'datetime',
+        ];
+    }
 
     const STATUS_TYPES = [
         'text',

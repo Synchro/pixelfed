@@ -19,10 +19,13 @@ class Media extends Model
      */
     protected $guarded = [];
 
-    protected $casts = [
-        'srcset' => 'array',
-        'deleted_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'srcset' => 'array',
+            'deleted_at' => 'datetime',
+        ];
+    }
 
     public function status()
     {

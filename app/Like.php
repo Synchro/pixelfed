@@ -11,16 +11,19 @@ class Like extends Model
 
     const MAX_PER_DAY = 1500;
 
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'deleted_at' => 'datetime',
-    ];
-
     protected $fillable = ['profile_id', 'status_id', 'status_profile_id'];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'deleted_at' => 'datetime',
+        ];
+    }
 
     public function actor()
     {
