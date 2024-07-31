@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
-use Illuminate\Support\ServiceProvider;
 
 return [
 
@@ -14,7 +13,6 @@ return [
     'logo' => '/img/pixelfed-icon-color.svg',
 
     'banner_image' => '/storage/headers/default.jpg',
-
 
     'aliases' => Facade::defaultAliases()->merge([
         'Captcha' => Buzz\LaravelHCaptcha\CaptchaFacade::class,

@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Database\DBAL\TimestampType;
-
 return [
 
     'connections' => [

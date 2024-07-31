@@ -9,8 +9,6 @@ class CryptoTest extends TestCase
 {
     /**
      * A basic test to check if PHPSecLib is installed.
-     *
-     * @return void
      */
     public function testLibraryInstalled(): void
     {

@@ -30,7 +30,6 @@ return Application::configure(basePath: dirname(__DIR__))
             \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
         ]);
 
-
         $middleware->alias([
             'admin' => \App\Http\Middleware\Admin::class,
             'api.admin' => \App\Http\Middleware\Api\Admin::class,

@@ -18,8 +18,6 @@ class UserFilterObserver
 
     /**
      * Handle the user filter "created" event.
-     *
-     * @return void
      */
     public function created(UserFilter $userFilter): void
     {
@@ -28,8 +26,6 @@ class UserFilterObserver
 
     /**
      * Handle the user filter "updated" event.
-     *
-     * @return void
      */
     public function updated(UserFilter $userFilter): void
     {
@@ -38,8 +34,6 @@ class UserFilterObserver
 
     /**
      * Handle the user filter "deleted" event.
-     *
-     * @return void
      */
     public function deleted(UserFilter $userFilter): void
     {
@@ -48,8 +42,6 @@ class UserFilterObserver
 
     /**
      * Handle the user filter "restored" event.
-     *
-     * @return void
      */
     public function restored(UserFilter $userFilter): void
     {
@@ -58,8 +50,6 @@ class UserFilterObserver
 
     /**
      * Handle the user filter "force deleted" event.
-     *
-     * @return void
      */
     public function forceDeleted(UserFilter $userFilter): void
     {

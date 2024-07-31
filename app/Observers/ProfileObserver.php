@@ -16,8 +16,6 @@ class ProfileObserver
 
     /**
      * Handle the Profile "created" event.
-     *
-     * @return void
      */
     public function created(Profile $profile): void
     {
@@ -26,8 +24,6 @@ class ProfileObserver
 
     /**
      * Handle the Profile "updated" event.
-     *
-     * @return void
      */
     public function updated(Profile $profile): void
     {
@@ -36,8 +32,6 @@ class ProfileObserver
 
     /**
      * Handle the Profile "deleted" event.
-     *
-     * @return void
      */
     public function deleted(Profile $profile): void
     {
@@ -46,8 +40,6 @@ class ProfileObserver
 
     /**
      * Handle the Profile "restored" event.
-     *
-     * @return void
      */
     public function restored(Profile $profile): void
     {
@@ -56,8 +48,6 @@ class ProfileObserver
 
     /**
      * Handle the Profile "force deleted" event.
-     *
-     * @return void
      */
     public function forceDeleted(Profile $profile): void
     {

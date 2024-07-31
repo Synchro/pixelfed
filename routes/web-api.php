@@ -17,11 +17,11 @@ use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\PublicApiController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SeasonalController;
+use App\Http\Controllers\SoftwareUpdateController;
 use App\Http\Controllers\SpaController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\StoryController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SoftwareUpdateController;
 
 Route::domain(config('pixelfed.domain.app'))->middleware(['validemail', 'twofactor', 'localization'])->group(function () {
     Route::prefix('api')->group(function () {

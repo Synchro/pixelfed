@@ -47,8 +47,6 @@ class UserObserver
 
     /**
      * Handle the user "deleted" event.
-     *
-     * @return void
      */
     public function deleted(User $user): void
     {

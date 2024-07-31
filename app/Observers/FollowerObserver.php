@@ -11,8 +11,6 @@ class FollowerObserver
 {
     /**
      * Handle the Follower "created" event.
-     *
-     * @return void
      */
     public function created(Follower $follower): void
     {
@@ -26,8 +24,6 @@ class FollowerObserver
 
     /**
      * Handle the Follower "deleted" event.
-     *
-     * @return void
      */
     public function deleted(Follower $follower): void
     {
@@ -36,8 +32,6 @@ class FollowerObserver
 
     /**
      * Handle the Follower "force deleted" event.
-     *
-     * @return void
      */
     public function forceDeleted(Follower $follower): void
     {

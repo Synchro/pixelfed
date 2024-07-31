@@ -17,8 +17,6 @@ class ModLogObserver
 
     /**
      * Handle the mod log "created" event.
-     *
-     * @return void
      */
     public function created(ModLog $modLog): void
     {
@@ -27,8 +25,6 @@ class ModLogObserver
 
     /**
      * Handle the mod log "updated" event.
-     *
-     * @return void
      */
     public function updated(ModLog $modLog): void
     {
@@ -37,8 +33,6 @@ class ModLogObserver
 
     /**
      * Handle the mod log "deleted" event.
-     *
-     * @return void
      */
     public function deleted(ModLog $modLog): void
     {
@@ -47,8 +41,6 @@ class ModLogObserver
 
     /**
      * Handle the mod log "restored" event.
-     *
-     * @return void
      */
     public function restored(ModLog $modLog): void
     {
@@ -57,8 +49,6 @@ class ModLogObserver
 
     /**
      * Handle the mod log "force deleted" event.
-     *
-     * @return void
      */
     public function forceDeleted(ModLog $modLog): void
     {

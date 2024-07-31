@@ -16,8 +16,6 @@ class NotificationObserver
 
     /**
      * Handle the notification "created" event.
-     *
-     * @return void
      */
     public function created(Notification $notification): void
     {
@@ -26,8 +24,6 @@ class NotificationObserver
 
     /**
      * Handle the notification "updated" event.
-     *
-     * @return void
      */
     public function updated(Notification $notification): void
     {
@@ -36,8 +32,6 @@ class NotificationObserver
 
     /**
      * Handle the notification "deleted" event.
-     *
-     * @return void
      */
     public function deleted(Notification $notification): void
     {
@@ -46,8 +40,6 @@ class NotificationObserver
 
     /**
      * Handle the notification "restored" event.
-     *
-     * @return void
      */
     public function restored(Notification $notification): void
     {
@@ -56,8 +48,6 @@ class NotificationObserver
 
     /**
      * Handle the notification "force deleted" event.
-     *
-     * @return void
      */
     public function forceDeleted(Notification $notification): void
     {

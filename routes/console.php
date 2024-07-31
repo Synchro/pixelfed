@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Schedule;
 |
 */
 
-
 Schedule::command('media:optimize')->hourlyAt(40)->onOneServer();
 Schedule::command('media:gc')->hourlyAt(5)->onOneServer();
 Schedule::command('horizon:snapshot')->everyFiveMinutes()->onOneServer();

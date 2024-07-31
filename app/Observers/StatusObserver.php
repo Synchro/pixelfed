@@ -21,8 +21,6 @@ class StatusObserver
 
     /**
      * Handle the Status "created" event.
-     *
-     * @return void
      */
     public function created(Status $status): void
     {
@@ -31,8 +29,6 @@ class StatusObserver
 
     /**
      * Handle the Status "updated" event.
-     *
-     * @return void
      */
     public function updated(Status $status): void
     {
@@ -51,8 +47,6 @@ class StatusObserver
 
     /**
      * Handle the Status "deleted" event.
-     *
-     * @return void
      */
     public function deleted(Status $status): void
     {
@@ -82,8 +76,6 @@ class StatusObserver
 
     /**
      * Handle the Status "restored" event.
-     *
-     * @return void
      */
     public function restored(Status $status): void
     {
@@ -92,8 +84,6 @@ class StatusObserver
 
     /**
      * Handle the Status "force deleted" event.
-     *
-     * @return void
      */
     public function forceDeleted(Status $status): void
     {

@@ -18,8 +18,6 @@ class AvatarObserver
 
     /**
      * Handle the avatar "created" event.
-     *
-     * @return void
      */
     public function created(Avatar $avatar): void
     {
@@ -28,8 +26,6 @@ class AvatarObserver
 
     /**
      * Handle the avatar "updated" event.
-     *
-     * @return void
      */
     public function updated(Avatar $avatar): void
     {
@@ -38,8 +34,6 @@ class AvatarObserver
 
     /**
      * Handle the avatar "deleted" event.
-     *
-     * @return void
      */
     public function deleted(Avatar $avatar): void
     {
@@ -73,8 +67,6 @@ class AvatarObserver
 
     /**
      * Handle the avatar "restored" event.
-     *
-     * @return void
      */
     public function restored(Avatar $avatar): void
     {
@@ -83,8 +75,6 @@ class AvatarObserver
 
     /**
      * Handle the avatar "force deleted" event.
-     *
-     * @return void
      */
     public function forceDeleted(Avatar $avatar): void
     {

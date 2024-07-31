@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminInviteController;
 use App\Http\Controllers\Api;
+use App\Http\Controllers\Api\V1\TagsController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ComposeController;
@@ -19,7 +20,6 @@ use App\Http\Controllers\Stories;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\UserAppSettingsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\TagsController;
 
 $middleware = ['auth:api', 'validemail'];
 

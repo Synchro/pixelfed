@@ -2,17 +2,16 @@
 
 namespace App\Http\Middleware\Api;
 
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Request;
 use Auth;
 use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class Admin
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function handle(Request $request, Closure $next): Response

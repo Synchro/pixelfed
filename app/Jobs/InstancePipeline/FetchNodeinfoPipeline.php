@@ -45,8 +45,6 @@ class FetchNodeinfoPipeline implements ShouldBeUniqueUntilProcessing, ShouldQueu
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle(): void
     {
