@@ -4,14 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccountInterstitialsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('account_interstitials', function (Blueprint $table) {
             $table->id();
@@ -33,21 +31,19 @@ class CreateAccountInterstitialsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('users', function(Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->boolean('has_interstitial')->default(false)->index();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('account_interstitials');
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('has_interstitial');
         });
     }
-}
+};

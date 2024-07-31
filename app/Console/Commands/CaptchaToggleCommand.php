@@ -2,10 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use function Laravel\Prompts\info;
-use function Laravel\Prompts\confirm;
 use App\Services\ConfigCacheService;
+use Illuminate\Console\Command;
+
+use function Laravel\Prompts\confirm;
+use function Laravel\Prompts\info;
 
 class CaptchaToggleCommand extends Command
 {
@@ -26,14 +27,15 @@ class CaptchaToggleCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $captchaEnabled = (bool) config_cache('captcha.enabled');
 
         info($captchaEnabled ? 'Captcha is enabled' : 'Captcha is not enabled');
 
-        if(!$captchaEnabled) {
+        if (! $captchaEnabled) {
             info('Enable the Captcha from the admin settings dashboard.');
+
             return;
         }
 
@@ -45,7 +47,7 @@ class CaptchaToggleCommand extends Command
             hint: 'Select an option to proceed.'
         );
 
-        if($confirmed) {
+        if ($confirmed) {
             ConfigCacheService::put('captcha.enabled', false);
         }
     }

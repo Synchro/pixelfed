@@ -3,23 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Avatar extends Model
 {
     use SoftDeletes;
 
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'deleted_at' => 'datetime',
-        'last_fetched_at' => 'datetime',
-        'last_processed_at' => 'datetime'
-    ];
-    
     protected $guarded = [];
 
     protected $visible = [
@@ -29,8 +19,22 @@ class Avatar extends Model
         'size',
     ];
 
-    public function profile()
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-    	return $this->belongsTo(Profile::class);
+        return [
+            'deleted_at' => 'datetime',
+            'last_fetched_at' => 'datetime',
+            'last_processed_at' => 'datetime',
+        ];
+    }
+
+    public function profile(): BelongsTo
+    {
+        return $this->belongsTo(Profile::class);
     }
 }

@@ -8,10 +8,12 @@ use Tests\TestCase;
 class AcceptVerbTest extends TestCase
 {
     protected array $validAccept;
+
     protected array $invalidAccept;
+
     protected array $mastodonAccept;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -24,8 +26,8 @@ class AcceptVerbTest extends TestCase
                 'id' => 'https://example.net/u/bob#follows/bb27f601-ddb9-4567-8f16-023d90605ca9',
                 'type' => 'Follow',
                 'actor' => 'https://example.net/u/bob',
-                'object' => 'https://example.org/u/alice'
-            ]
+                'object' => 'https://example.org/u/alice',
+            ],
         ];
 
         $this->invalidAccept = [
@@ -37,8 +39,8 @@ class AcceptVerbTest extends TestCase
                 'id' => 'https://example.net/u/bob#follows/bb27f601-ddb9-4567-8f16-023d90605ca9',
                 'type' => 'Follow',
                 'actor' => 'https://example.net/u/bob',
-                'object' => 'https://example.org/u/alice'
-            ]
+                'object' => 'https://example.org/u/alice',
+            ],
         ];
 
         $this->mastodonAccept = [
@@ -78,19 +80,19 @@ class AcceptVerbTest extends TestCase
     }
 
     /** @test */
-    public function basic_accept()
+    public function basic_accept(): void
     {
         $this->assertTrue(Accept::validate($this->validAccept));
     }
 
     /** @test */
-    public function invalid_accept()
+    public function invalid_accept(): void
     {
         $this->assertFalse(Accept::validate($this->invalidAccept));
     }
 
     /** @test */
-    public function mastodon_accept()
+    public function mastodon_accept(): void
     {
         $this->assertTrue(Accept::validate($this->mastodonAccept));
     }

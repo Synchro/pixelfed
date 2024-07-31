@@ -2,19 +2,19 @@
 
 namespace App\Jobs\LikePipeline;
 
-use Cache, DB, Log;
-use Illuminate\Support\Facades\Redis;
-use App\{Like, Notification};
+use App\Like;
+use App\Notification;
+use App\Services\StatusService;
+use App\Transformer\ActivityPub\Verb\Like as LikeTransformer;
+use App\Util\ActivityPub\Helpers;
+use DB;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Util\ActivityPub\Helpers;
 use League\Fractal;
 use League\Fractal\Serializer\ArraySerializer;
-use App\Transformer\ActivityPub\Verb\Like as LikeTransformer;
-use App\Services\StatusService;
 
 class LikePipeline implements ShouldQueue
 {
@@ -30,6 +30,7 @@ class LikePipeline implements ShouldQueue
     public $deleteWhenMissingModels = true;
 
     public $timeout = 5;
+
     public $tries = 1;
 
     /**
@@ -44,17 +45,15 @@ class LikePipeline implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $like = $this->like;
 
         $status = $this->like->status;
         $actor = $this->like->actor;
 
-        if (!$status) {
+        if (! $status) {
             // Ignore notifications to deleted statuses
             return;
         }
@@ -64,29 +63,29 @@ class LikePipeline implements ShouldQueue
 
         StatusService::refresh($status->id);
 
-        if($status->url && $actor->domain == null) {
+        if ($status->url && $actor->domain == null) {
             return $this->remoteLikeDeliver();
         }
 
         $exists = Notification::whereProfileId($status->profile_id)
-                  ->whereActorId($actor->id)
-                  ->whereAction('like')
-                  ->whereItemId($status->id)
-                  ->whereItemType('App\Status')
-                  ->count();
+            ->whereActorId($actor->id)
+            ->whereAction('like')
+            ->whereItemId($status->id)
+            ->whereItemType(\App\Status::class)
+            ->count();
 
         if ($actor->id === $status->profile_id || $exists !== 0) {
             return true;
         }
 
-        if($status->uri === null && $status->object_url === null && $status->url === null) {
+        if ($status->uri === null && $status->object_url === null && $status->url === null) {
             try {
                 $notification = new Notification();
                 $notification->profile_id = $status->profile_id;
                 $notification->actor_id = $actor->id;
                 $notification->action = 'like';
                 $notification->item_id = $status->id;
-                $notification->item_type = "App\Status";
+                $notification->item_type = \App\Status::class;
                 $notification->save();
 
             } catch (Exception $e) {

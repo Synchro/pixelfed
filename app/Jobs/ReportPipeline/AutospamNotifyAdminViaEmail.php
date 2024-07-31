@@ -2,15 +2,13 @@
 
 namespace App\Jobs\ReportPipeline;
 
+use App\Mail\AdminNewAutospam;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\AdminNewAutospam;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class AutospamNotifyAdminViaEmail implements ShouldQueue
 {
@@ -30,21 +28,19 @@ class AutospamNotifyAdminViaEmail implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $addresses = config('instance.reports.email.to');
 
-        if(config('instance.reports.email.enabled') == false || empty($addresses) || !config('instance.reports.email.autospam')) {
-        	return;
+        if (config('instance.reports.email.enabled') == false || empty($addresses) || ! config('instance.reports.email.autospam')) {
+            return;
         }
 
-        if(strpos($addresses, ',')) {
-        	$to = explode(',', $addresses);
+        if (strpos($addresses, ',')) {
+            $to = explode(',', $addresses);
         } else {
-        	$to = $addresses;
+            $to = $addresses;
         }
 
         Mail::to($to)->send(new AdminNewAutospam($this->report));

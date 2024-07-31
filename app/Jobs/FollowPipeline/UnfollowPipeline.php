@@ -38,10 +38,8 @@ class UnfollowPipeline implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $actor = $this->actor;
         $target = $this->target;
@@ -95,7 +93,7 @@ class UnfollowPipeline implements ShouldQueue
                 ->whereAction('follow')
                 ->whereActorId($actor)
                 ->whereItemId($target)
-                ->whereItemType('App\Profile')
+                ->whereItemType(\App\Profile::class)
                 ->get()
                 ->each(function ($n) {
                     NotificationService::del($n->profile_id, $n->id);

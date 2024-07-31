@@ -1,24 +1,20 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use App\Profile;
+use Illuminate\Database\Migrations\Migration;
 
-class GenerateMissingProfileWebfinger extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Profile::whereNotNull('domain')
             ->whereNull('webfinger')
-            ->chunk(200, function($profiles) {
-                foreach($profiles as $profile) {
-                    if(substr($profile->username, 0, 1) === "@") {
+            ->chunk(200, function ($profiles) {
+                foreach ($profiles as $profile) {
+                    if (substr($profile->username, 0, 1) === '@') {
                         $profile->webfinger = $profile->username;
                         $profile->save();
                     }
@@ -28,11 +24,9 @@ class GenerateMissingProfileWebfinger extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         //
     }
-}
+};

@@ -3,38 +3,44 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Instance extends Model
 {
-    protected $casts = [
-        'last_crawled_at' => 'datetime',
-        'actors_last_synced_at' => 'datetime',
-        'notes' => 'array',
-        'nodeinfo_last_fetched' => 'datetime',
-        'delivery_next_after' => 'datetime',
-    ];
-
     protected $fillable = [
         'domain',
         'banned',
         'auto_cw',
         'unlisted',
-        'notes'
+        'notes',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'last_crawled_at' => 'datetime',
+            'actors_last_synced_at' => 'datetime',
+            'notes' => 'array',
+            'nodeinfo_last_fetched' => 'datetime',
+            'delivery_next_after' => 'datetime',
+        ];
+    }
+
     // To get all moderated instances, we need to search where (banned OR unlisted)
-    public function scopeModerated($query): void {
+    public function scopeModerated($query): void
+    {
         $query->where(function ($query) {
             $query->where('banned', true)->orWhere('unlisted', true);
         });
     }
 
-    public function profiles()
+    public function profiles(): HasMany
     {
         return $this->hasMany(Profile::class, 'domain', 'domain');
     }
 
-    public function statuses()
+    public function statuses(): HasManyThrough
     {
         return $this->hasManyThrough(
             Status::class,
@@ -46,7 +52,7 @@ class Instance extends Model
         );
     }
 
-    public function reported()
+    public function reported(): HasManyThrough
     {
         return $this->hasManyThrough(
             Report::class,
@@ -58,7 +64,7 @@ class Instance extends Model
         );
     }
 
-    public function reports()
+    public function reports(): HasManyThrough
     {
         return $this->hasManyThrough(
             Report::class,
@@ -70,7 +76,7 @@ class Instance extends Model
         );
     }
 
-    public function media()
+    public function media(): HasManyThrough
     {
         return $this->hasManyThrough(
             Media::class,

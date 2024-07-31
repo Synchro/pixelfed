@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Jobs\InternalPipeline\NotificationEpochUpdatePipeline;
+use Illuminate\Console\Command;
 
 class NotificationEpochUpdate extends Command
 {
@@ -24,7 +24,7 @@ class NotificationEpochUpdate extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         NotificationEpochUpdatePipeline::dispatch();
     }

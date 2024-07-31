@@ -3,33 +3,35 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class StatusHashtag extends Model
 {
     public $fillable = [
-    	'status_id', 
-    	'hashtag_id', 
-    	'profile_id',
-    	'status_visibility'
+        'status_id',
+        'hashtag_id',
+        'profile_id',
+        'status_visibility',
     ];
 
-	public function status()
-	{
-		return $this->belongsTo(Status::class);
-	}
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);
+    }
 
-	public function hashtag()
-	{
-		return $this->belongsTo(Hashtag::class);
-	}
+    public function hashtag(): BelongsTo
+    {
+        return $this->belongsTo(Hashtag::class);
+    }
 
-	public function profile()
-	{
-		return $this->belongsTo(Profile::class);
-	}
+    public function profile(): BelongsTo
+    {
+        return $this->belongsTo(Profile::class);
+    }
 
-	public function media()
-	{
+    public function media(): HasManyThrough
+    {
         return $this->hasManyThrough(
             Media::class,
             Status::class,
@@ -38,5 +40,5 @@ class StatusHashtag extends Model
             'status_id',
             'id'
         );
-	}
+    }
 }

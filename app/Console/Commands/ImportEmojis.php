@@ -21,7 +21,6 @@ class ImportEmojis extends Command
                             {--overwrite : Overwrite existing emojis}
                             {--disabled : Import all emojis as disabled}';
 
-
     /**
      * The console command description.
      *
@@ -31,15 +30,14 @@ class ImportEmojis extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $path = $this->argument('path');
 
-        if (!file_exists($path) || !mime_content_type($path) == 'application/x-tar') {
+        if (! file_exists($path) || ! mime_content_type($path) == 'application/x-tar') {
             $this->error('Path does not exist or is not a tarfile');
+
             return Command::FAILURE;
         }
 
@@ -52,8 +50,9 @@ class ImportEmojis extends Command
 
         foreach (new \RecursiveIteratorIterator($tar) as $entry) {
             $this->line("Processing {$entry->getFilename()}");
-            if (!$entry->isFile() || !$this->isImage($entry) || !$this->isEmoji($entry->getPathname())) {
+            if (! $entry->isFile() || ! $this->isImage($entry) || ! $this->isEmoji($entry->getPathname())) {
                 $failed++;
+
                 continue;
             }
 
@@ -73,8 +72,9 @@ class ImportEmojis extends Command
 
             $customEmoji = CustomEmoji::whereShortcode($shortcode)->first();
 
-            if ($customEmoji && !$this->option('overwrite')) {
+            if ($customEmoji && ! $this->option('overwrite')) {
                 $skipped++;
+
                 continue;
             }
 
@@ -84,9 +84,9 @@ class ImportEmojis extends Command
             $emoji->disabled = $this->option('disabled');
             $emoji->save();
 
-            $fileName = $emoji->id . '.' . $extension;
+            $fileName = $emoji->id.'.'.$extension;
             Storage::putFileAs('public/emoji', $entry->getPathname(), $fileName);
-            $emoji->media_path = 'emoji/' . $fileName;
+            $emoji->media_path = 'emoji/'.$fileName;
             $emoji->save();
             $imported++;
             Cache::forget('pf:custom_emoji');
@@ -105,6 +105,7 @@ class ImportEmojis extends Command
     private function isImage($file)
     {
         $image = getimagesize($file->getPathname());
+
         return $image !== false;
     }
 

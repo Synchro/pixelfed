@@ -3,16 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OauthClient extends Model
 {
+    protected $table = 'oauth_clients';
 
-	protected $table = 'oauth_clients';
-
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
-
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

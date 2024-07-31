@@ -9,7 +9,7 @@ class LikeTest extends TestCase
 {
     protected array $basicLike;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -45,7 +45,7 @@ class LikeTest extends TestCase
     }
 
     /** @test */
-    public function basic_like()
+    public function basic_like(): void
     {
         $this->assertTrue(Like::validate($this->basicLike));
     }

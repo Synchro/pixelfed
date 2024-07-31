@@ -9,7 +9,7 @@ class FollowTest extends TestCase
 {
     protected array $basicFollow;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -45,7 +45,7 @@ class FollowTest extends TestCase
     }
 
     /** @test */
-    public function basic_follow()
+    public function basic_follow(): void
     {
         $this->assertTrue(Follow::validate($this->basicFollow));
     }

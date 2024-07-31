@@ -16,55 +16,40 @@ class ProfileObserver
 
     /**
      * Handle the Profile "created" event.
-     *
-     * @param  \App\Profile  $profile
-     * @return void
      */
-    public function created(Profile $profile)
+    public function created(Profile $profile): void
     {
         //
     }
 
     /**
      * Handle the Profile "updated" event.
-     *
-     * @param  \App\Profile  $profile
-     * @return void
      */
-    public function updated(Profile $profile)
+    public function updated(Profile $profile): void
     {
         AccountService::del($profile->id);
     }
 
     /**
      * Handle the Profile "deleted" event.
-     *
-     * @param  \App\Profile  $profile
-     * @return void
      */
-    public function deleted(Profile $profile)
+    public function deleted(Profile $profile): void
     {
         AccountService::del($profile->id);
     }
 
     /**
      * Handle the Profile "restored" event.
-     *
-     * @param  \App\Profile  $profile
-     * @return void
      */
-    public function restored(Profile $profile)
+    public function restored(Profile $profile): void
     {
         //
     }
 
     /**
      * Handle the Profile "force deleted" event.
-     *
-     * @param  \App\Profile  $profile
-     * @return void
      */
-    public function forceDeleted(Profile $profile)
+    public function forceDeleted(Profile $profile): void
     {
         //
     }

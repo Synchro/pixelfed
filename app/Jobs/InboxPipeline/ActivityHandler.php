@@ -2,24 +2,27 @@
 
 namespace App\Jobs\InboxPipeline;
 
+use App\Util\ActivityPub\Inbox;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Util\ActivityPub\Inbox;
 
 class ActivityHandler implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $username;
+
     protected $headers;
+
     protected $payload;
 
     public $timeout = 300;
+
     public $tries = 1;
+
     public $maxExceptions = 1;
 
     /**
@@ -36,12 +39,10 @@ class ActivityHandler implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         (new Inbox($this->headers, $this->username, $this->payload))->handle();
-        return;
+
     }
 }

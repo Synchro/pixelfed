@@ -2,26 +2,24 @@
 
 namespace App\Providers;
 
-use Laravel\Horizon\Horizon;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Horizon\Horizon;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
 
         // Horizon::routeSmsNotificationsTo('15556667777');
         // Horizon::routeMailNotificationsTo('example@example.com');
         // Horizon::routeSlackNotificationsTo('slack-webhook-url', '#channel');
-        
-        if(config('horizon.darkmode') == true) {
+
+        if (config('horizon.darkmode') == true) {
             Horizon::night();
         }
     }
@@ -39,5 +37,4 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
             return $user->is_admin == true;
         });
     }
-
 }

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Media;
 use DB;
+use Illuminate\Console\Command;
 
 class RegenerateThumbnails extends Command
 {
@@ -37,12 +37,12 @@ class RegenerateThumbnails extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
-        DB::transaction(function() {
+        DB::transaction(function () {
             Media::whereIn('mime', ['image/jpeg', 'image/png'])
-                ->chunk(50, function($medias) {
-                    foreach($medias as $media) {
+                ->chunk(50, function ($medias) {
+                    foreach ($medias as $media) {
                         \App\Jobs\ImageOptimizePipeline\ImageThumbnail::dispatch($media);
                     }
                 });

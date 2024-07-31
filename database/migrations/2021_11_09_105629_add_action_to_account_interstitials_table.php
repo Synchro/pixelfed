@@ -4,17 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddActionToAccountInterstitialsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('account_interstitials', function (Blueprint $table) {
-        	$table->tinyInteger('severity_index')->unsigned()->nullable()->index();
+            $table->tinyInteger('severity_index')->unsigned()->nullable()->index();
             $table->boolean('is_spam')->nullable()->index()->after('item_type');
             $table->boolean('in_violation')->nullable()->index()->after('is_spam');
             $table->unsignedInteger('violation_id')->nullable()->index()->after('in_violation');
@@ -26,10 +24,8 @@ class AddActionToAccountInterstitialsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('account_interstitials', function (Blueprint $table) {
             $table->dropColumn('severity_index');
@@ -41,4 +37,4 @@ class AddActionToAccountInterstitialsTable extends Migration
             $table->dropColumn('emailed_at');
         });
     }
-}
+};

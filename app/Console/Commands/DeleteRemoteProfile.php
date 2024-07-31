@@ -28,7 +28,7 @@ class DeleteRemoteProfile extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $id = search(
             'Search for the account',

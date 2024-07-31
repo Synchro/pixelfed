@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Like extends Model
@@ -11,23 +12,26 @@ class Like extends Model
 
     const MAX_PER_DAY = 1500;
 
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $casts = [
-    	'deleted_at' => 'datetime'
-    ];
-
     protected $fillable = ['profile_id', 'status_id', 'status_profile_id'];
 
-    public function actor()
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'deleted_at' => 'datetime',
+        ];
+    }
+
+    public function actor(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
 
-    public function status()
+    public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
     }

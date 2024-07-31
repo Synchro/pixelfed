@@ -2,21 +2,17 @@
 
 namespace App\Jobs\InstancePipeline;
 
+use App\Instance;
+use App\Profile;
+use App\Services\NodeinfoService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Http;
-use App\Instance;
-use App\Profile;
-use App\Services\NodeinfoService;
-use Illuminate\Contracts\Cache\Repository;
-use Illuminate\Support\Facades\Cache;
 
-class FetchNodeinfoPipeline implements ShouldQueue, ShouldBeUniqueUntilProcessing
+class FetchNodeinfoPipeline implements ShouldBeUniqueUntilProcessing, ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -49,14 +45,12 @@ class FetchNodeinfoPipeline implements ShouldQueue, ShouldBeUniqueUntilProcessin
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $instance = $this->instance;
 
-        if( $instance->nodeinfo_last_fetched &&
+        if ($instance->nodeinfo_last_fetched &&
             $instance->nodeinfo_last_fetched->gt(now()->subHours(12)) ||
             $instance->delivery_timeout &&
             $instance->delivery_next_after->gt(now())
@@ -66,8 +60,8 @@ class FetchNodeinfoPipeline implements ShouldQueue, ShouldBeUniqueUntilProcessin
 
         $ni = NodeinfoService::get($instance->domain);
         $instance->last_crawled_at = now();
-        if($ni) {
-            if(isset($ni['software']) && is_array($ni['software']) && isset($ni['software']['name'])) {
+        if ($ni) {
+            if (isset($ni['software']) && is_array($ni['software']) && isset($ni['software']['name'])) {
                 $software = $ni['software']['name'];
                 $instance->software = strtolower(strip_tags($software));
                 $instance->user_count = Profile::whereDomain($instance->domain)->count();

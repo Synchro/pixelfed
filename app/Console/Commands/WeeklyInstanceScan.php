@@ -27,7 +27,7 @@ class WeeklyInstanceScan extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         if ((bool) config_cache('federation.activitypub.enabled') == false) {
             return;

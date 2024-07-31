@@ -11,7 +11,7 @@ class AdminShadowFilterService
 
     public static function queryFilter($name = 'hide_from_public_feeds')
     {
-        return AdminShadowFilter::whereItemType('App\Profile')
+        return AdminShadowFilter::whereItemType(\App\Profile::class)
             ->whereActive(1)
             ->where('hide_from_public_feeds', true)
             ->pluck('item_id')
@@ -20,12 +20,13 @@ class AdminShadowFilterService
 
     public static function getHideFromPublicFeedsList($refresh = false)
     {
-        $key = self::CACHE_KEY . 'list:hide_from_public_feeds';
-        if($refresh) {
+        $key = self::CACHE_KEY.'list:hide_from_public_feeds';
+        if ($refresh) {
             Cache::forget($key);
         }
-        return Cache::remember($key, 86400, function() {
-            return AdminShadowFilter::whereItemType('App\Profile')
+
+        return Cache::remember($key, 86400, function () {
+            return AdminShadowFilter::whereItemType(\App\Profile::class)
                 ->whereActive(1)
                 ->where('hide_from_public_feeds', true)
                 ->pluck('item_id')
@@ -35,16 +36,16 @@ class AdminShadowFilterService
 
     public static function canAddToPublicFeedByProfileId($profileId)
     {
-        return !in_array($profileId, self::getHideFromPublicFeedsList());
+        return ! in_array($profileId, self::getHideFromPublicFeedsList());
     }
 
     public static function refresh()
     {
         $keys = [
-            self::CACHE_KEY . 'list:hide_from_public_feeds'
+            self::CACHE_KEY.'list:hide_from_public_feeds',
         ];
 
-        foreach($keys as $key) {
+        foreach ($keys as $key) {
             Cache::forget($key);
         }
     }

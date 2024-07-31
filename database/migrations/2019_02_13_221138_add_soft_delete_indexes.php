@@ -1,57 +1,53 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class AddSoftDeleteIndexes extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('avatars', function (Blueprint $table) {
-            $table->index('deleted_at','avatars_deleted_at_index');
+            $table->index('deleted_at', 'avatars_deleted_at_index');
         });
 
         Schema::table('profiles', function (Blueprint $table) {
-            $table->index('deleted_at','profiles_deleted_at_index');
+            $table->index('deleted_at', 'profiles_deleted_at_index');
         });
 
         Schema::table('mentions', function (Blueprint $table) {
-            $table->index('deleted_at','mentions_deleted_at_index');
+            $table->index('deleted_at', 'mentions_deleted_at_index');
         });
 
         Schema::table('likes', function (Blueprint $table) {
-            $table->index('deleted_at','likes_deleted_at_index');
+            $table->index('deleted_at', 'likes_deleted_at_index');
         });
 
         Schema::table('statuses', function (Blueprint $table) {
-            $table->index('deleted_at','statuses_deleted_at_index');
+            $table->index('deleted_at', 'statuses_deleted_at_index');
         });
 
         Schema::table('media', function (Blueprint $table) {
-            $table->index('deleted_at','media_deleted_at_index');
+            $table->index('deleted_at', 'media_deleted_at_index');
         });
 
         Schema::table('notifications', function (Blueprint $table) {
-            $table->index('deleted_at','notifications_deleted_at_index');
+            $table->index('deleted_at', 'notifications_deleted_at_index');
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->index('deleted_at','users_deleted_at_index');
+            $table->index('deleted_at', 'users_deleted_at_index');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('avatars', function (Blueprint $table) {
             $table->dropIndex('avatars_deleted_at_index');
@@ -85,4 +81,4 @@ class AddSoftDeleteIndexes extends Migration
             $table->dropIndex('users_deleted_at_index');
         });
     }
-}
+};

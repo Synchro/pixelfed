@@ -2,15 +2,12 @@
 
 namespace App\Jobs\GroupsPipeline;
 
+use App\Models\GroupMember;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\GroupMember;
-use App\Notification;
-use App\Services\GroupService;
 
 class MemberJoinRejectedPipeline implements ShouldQueue
 {
@@ -30,10 +27,8 @@ class MemberJoinRejectedPipeline implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $member = $this->member;
         $member->rejected_at = now();

@@ -2,11 +2,12 @@
 
 namespace App;
 
-use Auth;
-use Storage;
-use Illuminate\Database\Eloquent\Model;
-use App\HasSnowflakePrimary;
 use App\Util\Lexer\Bearcap;
+use Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Storage;
 
 class Story extends Model
 {
@@ -21,71 +22,76 @@ class Story extends Model
      */
     public $incrementing = false;
 
-    protected $casts = [
-    	'expires_at' => 'datetime'
-    ];
-
     protected $fillable = ['profile_id', 'view_count'];
 
-	protected $visible = ['id'];
+    protected $visible = ['id'];
 
-	protected $hidden = ['json'];
+    protected $hidden = ['json'];
 
-	public function profile()
-	{
-		return $this->belongsTo(Profile::class);
-	}
+    protected function casts(): array
+    {
+        return [
+            'expires_at' => 'datetime',
+        ];
+    }
 
-	public function views()
-	{
-		return $this->hasMany(StoryView::class);
-	}
+    public function profile(): BelongsTo
+    {
+        return $this->belongsTo(Profile::class);
+    }
 
-	public function seen($pid = false)
-	{
-		return StoryView::whereStoryId($this->id)
-			->whereProfileId(Auth::user()->profile->id)
-			->exists();
-	}
+    public function views(): HasMany
+    {
+        return $this->hasMany(StoryView::class);
+    }
 
-	public function permalink()
-	{
-		$username = $this->profile->username;
-		return url("/stories/{$username}/{$this->id}/activity");
-	}
+    public function seen($pid = false)
+    {
+        return StoryView::whereStoryId($this->id)
+            ->whereProfileId(Auth::user()->profile->id)
+            ->exists();
+    }
 
-	public function url()
-	{
-		$username = $this->profile->username;
-		return url("/stories/{$username}/{$this->id}");
-	}
+    public function permalink()
+    {
+        $username = $this->profile->username;
 
-	public function mediaUrl()
-	{
-		return url(Storage::url($this->path));
-	}
+        return url("/stories/{$username}/{$this->id}/activity");
+    }
 
-	public function bearcapUrl()
-	{
-		return Bearcap::encode($this->url(), $this->bearcap_token);
-	}
+    public function url()
+    {
+        $username = $this->profile->username;
 
-	public function scopeToAudience($scope)
-	{
-		$res = [];
+        return url("/stories/{$username}/{$this->id}");
+    }
 
-		switch ($scope) {
-			case 'to':
-				$res = [
-					$this->profile->permalink('/followers')
-				];
-				break;
+    public function mediaUrl()
+    {
+        return url(Storage::url($this->path));
+    }
 
-			default:
-				$res = [];
-				break;
-		}
+    public function bearcapUrl()
+    {
+        return Bearcap::encode($this->url(), $this->bearcap_token);
+    }
 
-		return $res;
-	}
+    public function scopeToAudience($scope)
+    {
+        $res = [];
+
+        switch ($scope) {
+            case 'to':
+                $res = [
+                    $this->profile->permalink('/followers'),
+                ];
+                break;
+
+            default:
+                $res = [];
+                break;
+        }
+
+        return $res;
+    }
 }

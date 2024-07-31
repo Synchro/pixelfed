@@ -43,10 +43,8 @@ class AvatarOptimize implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $avatar = $this->profile->avatar;
         $file = storage_path("app/$avatar->media_path");

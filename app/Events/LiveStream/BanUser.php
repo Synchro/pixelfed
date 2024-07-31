@@ -2,20 +2,19 @@
 
 namespace App\Events\LiveStream;
 
+use App\Models\LiveStream;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\LiveStream;
 
 class BanUser implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $livestream;
+
     public $profileId;
 
     /**
@@ -34,9 +33,9 @@ class BanUser implements ShouldBroadcast
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
-        return new Channel('live.chat.' . $this->livestream->profile_id);
+        return new Channel('live.chat.'.$this->livestream->profile_id);
     }
 
     public function broadcastAs()

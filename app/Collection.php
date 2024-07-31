@@ -2,13 +2,14 @@
 
 namespace App;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use App\HasSnowflakePrimary;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Collection extends Model
 {
-	use HasSnowflakePrimary;
+    use HasSnowflakePrimary;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -21,17 +22,17 @@ class Collection extends Model
 
     public $dates = ['published_at'];
 
-	public function profile()
-	{
-		return $this->belongsTo(Profile::class);
-	}
+    public function profile(): BelongsTo
+    {
+        return $this->belongsTo(Profile::class);
+    }
 
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(CollectionItem::class);
     }
 
-    public function posts()
+    public function posts(): HasManyThrough
     {
         return $this->hasManyThrough(
             Status::class,

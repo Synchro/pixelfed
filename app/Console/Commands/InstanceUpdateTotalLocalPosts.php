@@ -27,7 +27,7 @@ class InstanceUpdateTotalLocalPosts extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $cached = $this->checkForCache();
         if (! $cached) {

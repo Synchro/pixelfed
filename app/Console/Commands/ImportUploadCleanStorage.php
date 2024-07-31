@@ -2,11 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\ImportPost;
-use Storage;
-use App\Services\ImportService;
 use App\User;
+use Illuminate\Console\Command;
+use Storage;
 
 class ImportUploadCleanStorage extends Command
 {
@@ -27,14 +25,14 @@ class ImportUploadCleanStorage extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $dirs = Storage::allDirectories('imports');
 
-        foreach($dirs as $dir) {
+        foreach ($dirs as $dir) {
             $uid = last(explode('/', $dir));
             $skip = User::whereNull('status')->find($uid);
-            if(!$skip) {
+            if (! $skip) {
                 Storage::deleteDirectory($dir);
             }
         }

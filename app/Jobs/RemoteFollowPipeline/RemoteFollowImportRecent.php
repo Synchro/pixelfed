@@ -5,7 +5,9 @@ namespace App\Jobs\RemoteFollowPipeline;
 use App\Jobs\ImageOptimizePipeline\ImageThumbnail;
 use App\Jobs\StatusPipeline\NewStatusPipeline;
 use App\Media;
+use App\Services\MediaPathService;
 use App\Status;
+use App\Util\ActivityPub\Helpers;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,19 +18,23 @@ use Illuminate\Queue\SerializesModels;
 use Log;
 use Storage;
 use Zttp\Zttp;
-use App\Util\ActivityPub\Helpers;
-use App\Services\MediaPathService;
 
 class RemoteFollowImportRecent implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $actor;
+
     protected $profile;
+
     protected $outbox;
+
     protected $mediaCount;
+
     protected $cursor;
+
     protected $nextUrl;
+
     protected $supported;
 
     /**
@@ -51,10 +57,8 @@ class RemoteFollowImportRecent implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // $outbox = $this->fetchOutbox();
     }
@@ -62,7 +66,7 @@ class RemoteFollowImportRecent implements ShouldQueue
     public function fetchOutbox($url = false)
     {
         $url = ($url == false) ? $this->actor['outbox'] : $url;
-        if(Helpers::validateUrl($url) == false) {
+        if (Helpers::validateUrl($url) == false) {
             return;
         }
         $response = Zttp::withHeaders([
@@ -94,7 +98,7 @@ class RemoteFollowImportRecent implements ShouldQueue
     {
         $outbox = $this->outbox;
 
-        if (!isset($outbox['next']) && !isset($outbox['first']['next']) && $this->cursor !== 1) {
+        if (! isset($outbox['next']) && ! isset($outbox['first']['next']) && $this->cursor !== 1) {
             $this->cursor = 40;
             $outbox['next'] = false;
         }
@@ -103,7 +107,7 @@ class RemoteFollowImportRecent implements ShouldQueue
             $this->nextUrl = $outbox['next'];
         }
 
-        if (isset($outbox['first']) && !is_array($outbox['first'])) {
+        if (isset($outbox['first']) && ! is_array($outbox['first'])) {
             // Mastodon detected
             Log::info('Mastodon detected...');
             $this->nextUrl = $outbox['first'];
@@ -140,7 +144,7 @@ class RemoteFollowImportRecent implements ShouldQueue
 
         $activity = $parsed['object'];
 
-        if (isset($activity['attachment']) && !empty($activity['attachment'])) {
+        if (isset($activity['attachment']) && ! empty($activity['attachment'])) {
             return $this->detectSupportedMedia($activity['attachment']);
         }
     }
@@ -182,15 +186,17 @@ class RemoteFollowImportRecent implements ShouldQueue
             Log::info($media['mediaType'].' - '.$media['url']);
             $url = $media['url'];
             $mime = $media['mediaType'];
-            if (!in_array($mime, $supported)) {
+            if (! in_array($mime, $supported)) {
                 Log::info('Invalid media, skipping. '.$mime);
+
                 continue;
             }
             if (Helpers::validateUrl($url) == false) {
-                Log::info('Skipping invalid attachment URL: ' . $url);
+                Log::info('Skipping invalid attachment URL: '.$url);
+
                 continue;
             }
-            
+
             $count++;
 
             if ($count === 1) {
@@ -228,7 +234,7 @@ class RemoteFollowImportRecent implements ShouldQueue
             $media->save();
 
             ImageThumbnail::dispatch($media);
-            
+
             @unlink($file);
 
             return true;

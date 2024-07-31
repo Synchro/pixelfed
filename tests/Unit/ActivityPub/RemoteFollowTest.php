@@ -9,7 +9,7 @@ class RemoteFollowTest extends TestCase
 {
     protected string $mastodon;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -18,7 +18,7 @@ class RemoteFollowTest extends TestCase
     }
 
     /** @test */
-    public function validateMastodonFollowObject()
+    public function validateMastodonFollowObject(): void
     {
         $mastodon = json_decode($this->mastodon, true);
         $mastodon = Helpers::validateObject($mastodon);

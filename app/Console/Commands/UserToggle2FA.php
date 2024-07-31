@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
-use App\User;
 
 class UserToggle2FA extends Command implements PromptsForMissingInput
 {
@@ -37,17 +37,18 @@ class UserToggle2FA extends Command implements PromptsForMissingInput
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $user = User::whereUsername($this->argument('username'))->first();
 
-        if(!$user) {
+        if (! $user) {
             $this->error('Could not find any user with that username');
             exit;
         }
 
-        if(!$user->{'2fa_enabled'}) {
+        if (! $user->{'2fa_enabled'}) {
             $this->info('User did not have 2FA enabled!');
+
             return;
         }
 

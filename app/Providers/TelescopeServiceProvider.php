@@ -11,10 +11,8 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         // Telescope::night();
 
@@ -63,12 +61,13 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewTelescope', function ($user) {
-        	if(!config('telescope.enabled')) {
-        		return false;
-        	}
+            if (! config('telescope.enabled')) {
+                return false;
+            }
+
             return in_array($user->email, [
                 'danielsupernault@gmail.com',
-                'me@dansup.com'
+                'me@dansup.com',
             ]);
         });
     }

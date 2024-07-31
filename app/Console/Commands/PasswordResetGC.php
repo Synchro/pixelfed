@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\EmailVerification;
+use Illuminate\Console\Command;
 
 class PasswordResetGC extends Command
 {
@@ -36,11 +36,11 @@ class PasswordResetGC extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         EmailVerification::where('created_at', '<', now()->subMinutes(1441))
-            ->chunk(50, function($emails) {
-                foreach($emails as $em) {
+            ->chunk(50, function ($emails) {
+                foreach ($emails as $em) {
                     $em->delete();
                 }
             });

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Util\Media\License;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Storage;
@@ -19,17 +20,20 @@ class Media extends Model
      */
     protected $guarded = [];
 
-    protected $casts = [
-        'srcset' => 'array',
-        'deleted_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'srcset' => 'array',
+            'deleted_at' => 'datetime',
+        ];
+    }
 
-    public function status()
+    public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
     }
 
-    public function profile()
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class);
     }

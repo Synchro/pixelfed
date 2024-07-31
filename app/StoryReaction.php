@@ -3,11 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class StoryReaction extends Model
 {
-	public function story()
-	{
-		return $this->belongsTo(Story::class);
-	}
+    public function story(): BelongsTo
+    {
+        return $this->belongsTo(Story::class);
+    }
 }

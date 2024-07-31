@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\User;
 use App\Services\EmailService;
+use App\User;
+use Illuminate\Console\Command;
 
 class BannedEmailCheck extends Command
 {
@@ -37,14 +37,14 @@ class BannedEmailCheck extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
-        $users = User::whereNull('status')->get()->filter(function($u) {
+        $users = User::whereNull('status')->get()->filter(function ($u) {
             return EmailService::isBanned($u->email) == true;
         });
 
-        foreach($users as $user) {
-            $this->info('Found banned domain: ' . $user->email . PHP_EOL);
+        foreach ($users as $user) {
+            $this->info('Found banned domain: '.$user->email.PHP_EOL);
         }
     }
 }

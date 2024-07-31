@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Profile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Profile;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class GroupComment extends Model
 {
@@ -12,13 +13,13 @@ class GroupComment extends Model
 
     public $guarded = [];
 
-    public function profile()
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class);
     }
 
     public function url()
     {
-        return '/group/' . $this->group_id . '/c/' . $this->id;
+        return '/group/'.$this->group_id.'/c/'.$this->id;
     }
 }

@@ -19,7 +19,9 @@ class RemoteFollowPipeline implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $url;
+
     protected $follower;
+
     protected $response;
 
     /**
@@ -35,10 +37,8 @@ class RemoteFollowPipeline implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $follower = $this->follower;
         $url = $this->url;
@@ -55,15 +55,15 @@ class RemoteFollowPipeline implements ShouldQueue
     public function discover($url)
     {
         $context = new Context([
-            'keys'      => ['examplekey' => 'secret-key-here'],
+            'keys' => ['examplekey' => 'secret-key-here'],
             'algorithm' => 'hmac-sha256',
-            'headers'   => ['(request-target)', 'date'],
+            'headers' => ['(request-target)', 'date'],
         ]);
 
         $handlerStack = GuzzleHttpSignatures::defaultHandlerFromContext($context);
         $client = new Client(['handler' => $handlerStack]);
         $response = Zttp::withHeaders([
-            'Accept'     => 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"',
+            'Accept' => 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"',
             'User-Agent' => 'PixelfedBot v0.1 - https://pixelfed.org',
         ])->get($url);
         $this->response = $response->json();
@@ -98,7 +98,7 @@ class RemoteFollowPipeline implements ShouldQueue
         $url = $res['inbox'];
 
         $activity = Zttp::withHeaders(['Content-Type' => 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"'])->post($url, [
-            'type'   => 'Follow',
+            'type' => 'Follow',
             'object' => $this->follower->url(),
         ]);
     }

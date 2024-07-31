@@ -8,14 +8,14 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('avatars', function (Blueprint $table) {
             $indexes = Schema::getIndexes('avatars');
-            $indexesFound = collect($indexes)->map(function($i) { return $i['name']; })->toArray();
+            $indexesFound = collect($indexes)->map(function ($i) {
+                return $i['name'];
+            })->toArray();
             if (in_array('avatars_cdn_url_unique', $indexesFound)) {
                 $table->dropUnique('avatars_cdn_url_unique');
             }
@@ -24,10 +24,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         //
     }

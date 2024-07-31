@@ -254,7 +254,7 @@ class ComposeController extends Controller
 
         abort_if($user->has_roles && ! UserRoleService::can('can-post', $user->id), 403, 'Invalid permissions for this action');
 
-        $blocked = UserFilter::whereFilterableType('App\Profile')
+        $blocked = UserFilter::whereFilterableType(\App\Profile::class)
             ->whereFilterType('block')
             ->whereFilterableId($request->user()->profile_id)
             ->pluck('user_id');
@@ -303,7 +303,7 @@ class ComposeController extends Controller
         if (! $tag) {
             return [];
         }
-        Notification::whereItemType('App\MediaTag')
+        Notification::whereItemType(\App\MediaTag::class)
             ->whereItemId($tag->id)
             ->whereProfileId($profile_id)
             ->whereAction('tagged')
@@ -411,7 +411,7 @@ class ComposeController extends Controller
             }
         }
 
-        $blocked = UserFilter::whereFilterableType('App\Profile')
+        $blocked = UserFilter::whereFilterableType(\App\Profile::class)
             ->whereFilterType('block')
             ->whereFilterableId($request->user()->profile_id)
             ->pluck('user_id');
@@ -612,7 +612,7 @@ class ComposeController extends Controller
                     $count = $collection->items()->count();
                     CollectionItem::firstOrCreate([
                         'collection_id' => $collection->id,
-                        'object_type' => 'App\Status',
+                        'object_type' => \App\Status::class,
                         'object_id' => $status->id,
                     ], [
                         'order' => $count,

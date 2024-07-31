@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserRoles extends Model
 {
@@ -12,11 +13,14 @@ class UserRoles extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'roles' => 'array'
-    ];
+    protected function casts(): array
+    {
+        return [
+            'roles' => 'array',
+        ];
+    }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

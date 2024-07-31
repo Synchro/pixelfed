@@ -3,22 +3,26 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Activity extends Model
 {
-    protected $casts = [
-    	'processed_at' => 'datetime'
-    ];
-
     protected $fillable = ['data', 'to_id', 'from_id', 'object_type'];
 
-	public function toProfile()
-	{
-		return $this->belongsTo(Profile::class, 'to_id');
-	}
+    protected function casts(): array
+    {
+        return [
+            'processed_at' => 'datetime',
+        ];
+    }
 
-	public function fromProfile()
-	{
-		return $this->belongsTo(Profile::class, 'from_id');
-	}
+    public function toProfile(): BelongsTo
+    {
+        return $this->belongsTo(Profile::class, 'to_id');
+    }
+
+    public function fromProfile(): BelongsTo
+    {
+        return $this->belongsTo(Profile::class, 'from_id');
+    }
 }

@@ -2,39 +2,35 @@
 
 namespace App\Console\Commands;
 
+use App\Avatar;
+use App\Bookmark;
+use App\Collection;
+use App\DirectMessage;
+use App\Follower;
+use App\FollowRequest;
+use App\HashtagFollow;
+use App\Like;
+use App\Media;
+use App\MediaTag;
+use App\Mention;
+use App\Models\Conversation;
+use App\Models\Portfolio;
+use App\Models\UserPronoun;
+use App\Profile;
+use App\Report;
+use App\ReportComment;
+use App\ReportLog;
+use App\Status;
+use App\StatusArchived;
+use App\StatusHashtag;
+use App\StatusView;
+use App\Story;
+use App\StoryView;
+use App\User;
+use App\UserFilter;
+use Cache;
+use DB;
 use Illuminate\Console\Command;
-
-use App\{
-    Avatar,
-    Bookmark,
-    Collection,
-    DirectMessage,
-    FollowRequest,
-    Follower,
-    HashtagFollow,
-    Like,
-    Media,
-    MediaTag,
-    Mention,
-    Profile,
-    Report,
-    ReportComment,
-    ReportLog,
-    StatusArchived,
-    StatusHashtag,
-    StatusView,
-    Status,
-    Story,
-    StoryView,
-    User,
-    UserFilter
-};
-use App\Models\{
-    Conversation,
-    Portfolio,
-    UserPronoun
-};
-use DB, Cache;
 
 class FixDuplicateProfiles extends Command
 {
@@ -67,7 +63,7 @@ class FixDuplicateProfiles extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $duplicates = DB::table('profiles')
             ->whereNull('domain')
@@ -76,16 +72,16 @@ class FixDuplicateProfiles extends Command
             ->havingRaw('COUNT(*) > 1')
             ->pluck('username');
 
-        foreach($duplicates as $dupe) {
+        foreach ($duplicates as $dupe) {
             $ids = Profile::whereNull('domain')->whereUsername($dupe)->pluck('id');
-            if(!$ids || $ids->count() != 2) {
+            if (! $ids || $ids->count() != 2) {
                 continue;
             }
             $id = $ids->first();
             $oid = $ids->last();
 
             $user = User::whereUsername($dupe)->first();
-            if($user) {
+            if ($user) {
                 $user->profile_id = $id;
                 $user->save();
             } else {
@@ -156,17 +152,17 @@ class FixDuplicateProfiles extends Command
     protected function checkFollowers($id, $oid)
     {
         $f = Follower::whereProfileId($oid)->pluck('following_id');
-        foreach($f as $fo) {
+        foreach ($f as $fo) {
             Follower::updateOrCreate([
                 'profile_id' => $id,
-                'following_id' => $fo
+                'following_id' => $fo,
             ]);
         }
         $f = Follower::whereFollowingId($oid)->pluck('profile_id');
-        foreach($f as $fo) {
+        foreach ($f as $fo) {
             Follower::updateOrCreate([
                 'profile_id' => $fo,
-                'following_id' => $id
+                'following_id' => $id,
             ]);
         }
     }
@@ -243,12 +239,11 @@ class FixDuplicateProfiles extends Command
     protected function checkUserFilter($id, $oid)
     {
         UserFilter::whereUserId($oid)->update(['user_id' => $id]);
-        UserFilter::whereFilterableType('App\Profile')->whereFilterableId($oid)->update(['filterable_id' => $id]);
+        UserFilter::whereFilterableType(\App\Profile::class)->whereFilterableId($oid)->update(['filterable_id' => $id]);
     }
 
     protected function checkUserPronoun($id, $oid)
     {
         UserPronoun::whereProfileId($oid)->update(['profile_id' => $id]);
     }
-
 }

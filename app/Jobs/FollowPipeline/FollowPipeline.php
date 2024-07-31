@@ -4,6 +4,8 @@ namespace App\Jobs\FollowPipeline;
 
 use App\Follower;
 use App\Notification;
+use App\Services\AccountService;
+use App\Services\FollowerService;
 use Cache;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,9 +13,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Log;
-use Illuminate\Support\Facades\Redis;
-use App\Services\AccountService;
-use App\Services\FollowerService;
 
 class FollowPipeline implements ShouldQueue
 {
@@ -40,25 +39,23 @@ class FollowPipeline implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $follower = $this->follower;
         $actor = $follower->actor;
         $target = $follower->target;
 
-        if(!$actor || !$target) {
+        if (! $actor || ! $target) {
             return;
         }
 
-        if($target->domain || !$target->private_key) {
+        if ($target->domain || ! $target->private_key) {
             return;
         }
 
-        Cache::forget('profile:following:' . $actor->id);
-        Cache::forget('profile:following:' . $target->id);
+        Cache::forget('profile:following:'.$actor->id);
+        Cache::forget('profile:following:'.$target->id);
 
         FollowerService::add($actor->id, $target->id);
 
@@ -72,14 +69,14 @@ class FollowPipeline implements ShouldQueue
         $target->save();
         AccountService::del($target->id);
 
-        if($target->user_id && $target->domain === null) {
+        if ($target->user_id && $target->domain === null) {
             try {
                 $notification = new Notification();
                 $notification->profile_id = $target->id;
                 $notification->actor_id = $actor->id;
                 $notification->action = 'follow';
                 $notification->item_id = $target->id;
-                $notification->item_type = "App\Profile";
+                $notification->item_type = \App\Profile::class;
                 $notification->save();
             } catch (Exception $e) {
                 Log::error($e);

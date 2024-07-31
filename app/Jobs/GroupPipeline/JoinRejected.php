@@ -2,15 +2,13 @@
 
 namespace App\Jobs\GroupPipeline;
 
+use App\Models\GroupMember;
+use App\Notification;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\GroupMember;
-use App\Notification;
-use App\Services\GroupService;
 
 class JoinRejected implements ShouldQueue
 {
@@ -30,10 +28,8 @@ class JoinRejected implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $member = $this->member;
         $member->rejected_at = now();
@@ -43,7 +39,7 @@ class JoinRejected implements ShouldQueue
         $n->profile_id = $member->profile_id;
         $n->actor_id = $member->profile_id;
         $n->item_id = $member->group_id;
-        $n->item_type = 'App\Models\Group';
+        $n->item_type = \App\Models\Group::class;
         $n->action = 'group.join.rejected';
         $n->save();
     }

@@ -1,32 +1,26 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use App\Status;
+use Illuminate\Database\Migrations\Migration;
 
-class AddMissingReblogOfIdTypesToStatusesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Status::whereNotNull('reblog_of_id')
-        	->whereNull('type')
-        	->update([
-        		'type' => 'share'
-        	]);
+            ->whereNull('type')
+            ->update([
+                'type' => 'share',
+            ]);
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
     }
-}
+};

@@ -18,30 +18,24 @@ class AvatarObserver
 
     /**
      * Handle the avatar "created" event.
-     *
-     * @return void
      */
-    public function created(Avatar $avatar)
+    public function created(Avatar $avatar): void
     {
         //
     }
 
     /**
      * Handle the avatar "updated" event.
-     *
-     * @return void
      */
-    public function updated(Avatar $avatar)
+    public function updated(Avatar $avatar): void
     {
         AccountService::del($avatar->profile_id);
     }
 
     /**
      * Handle the avatar "deleted" event.
-     *
-     * @return void
      */
-    public function deleted(Avatar $avatar)
+    public function deleted(Avatar $avatar): void
     {
         //
     }
@@ -73,20 +67,16 @@ class AvatarObserver
 
     /**
      * Handle the avatar "restored" event.
-     *
-     * @return void
      */
-    public function restored(Avatar $avatar)
+    public function restored(Avatar $avatar): void
     {
         //
     }
 
     /**
      * Handle the avatar "force deleted" event.
-     *
-     * @return void
      */
-    public function forceDeleted(Avatar $avatar)
+    public function forceDeleted(Avatar $avatar): void
     {
         //
     }

@@ -9,15 +9,13 @@ class CryptoTest extends TestCase
 {
     /**
      * A basic test to check if PHPSecLib is installed.
-     *
-     * @return void
      */
-    public function testLibraryInstalled()
+    public function testLibraryInstalled(): void
     {
         $this->assertTrue(class_exists('\phpseclib\Crypt\RSA'));
     }
 
-    public function testRSASigning()
+    public function testRSASigning(): void
     {
         $rsa = new RSA();
         extract($rsa->createKey());

@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use DB;
 use App\Jobs\ImageOptimizePipeline\ImageOptimize;
 use App\Media;
 use Illuminate\Console\Command;
@@ -38,7 +37,7 @@ class CatchUnoptimizedMedia extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         Media::whereNull('processed_at')
             ->where('created_at', '>', now()->subHours(1))
@@ -50,7 +49,7 @@ class CatchUnoptimizedMedia extends Command
                 'image/jpeg',
                 'image/png',
             ])
-            ->chunk(50, function($medias) {
+            ->chunk(50, function ($medias) {
                 foreach ($medias as $media) {
                     ImageOptimize::dispatch($media);
                 }

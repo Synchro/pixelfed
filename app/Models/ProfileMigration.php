@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Profile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Profile;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProfileMigration extends Model
 {
@@ -12,12 +13,12 @@ class ProfileMigration extends Model
 
     protected $guarded = [];
 
-    public function profile()
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'profile_id');
     }
 
-    public function target()
+    public function target(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'target_profile_id');
     }

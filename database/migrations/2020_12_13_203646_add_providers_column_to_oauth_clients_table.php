@@ -4,17 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddProvidersColumnToOauthClientsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('oauth_clients', function (Blueprint $table) {
-            if(Schema::hasTable('oauth_clients') && Schema::hasColumn('oauth_clients', 'provider') == false) {
+            if (Schema::hasTable('oauth_clients') && Schema::hasColumn('oauth_clients', 'provider') == false) {
                 $table->string('provider')->after('secret')->nullable();
             }
         });
@@ -22,15 +20,13 @@ class AddProvidersColumnToOauthClientsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-    	if(Schema::hasTable('oauth_clients')) {
-	        Schema::table('oauth_clients', function (Blueprint $table) {
-	            $table->dropColumn('provider');
-	        });
-    	}
+        if (Schema::hasTable('oauth_clients')) {
+            Schema::table('oauth_clients', function (Blueprint $table) {
+                $table->dropColumn('provider');
+            });
+        }
     }
-}
+};

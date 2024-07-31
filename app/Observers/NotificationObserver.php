@@ -16,55 +16,40 @@ class NotificationObserver
 
     /**
      * Handle the notification "created" event.
-     *
-     * @param  \App\Notification  $notification
-     * @return void
      */
-    public function created(Notification $notification)
+    public function created(Notification $notification): void
     {
         NotificationService::set($notification->profile_id, $notification->id);
     }
 
     /**
      * Handle the notification "updated" event.
-     *
-     * @param  \App\Notification  $notification
-     * @return void
      */
-    public function updated(Notification $notification)
+    public function updated(Notification $notification): void
     {
         NotificationService::set($notification->profile_id, $notification->id);
     }
 
     /**
      * Handle the notification "deleted" event.
-     *
-     * @param  \App\Notification  $notification
-     * @return void
      */
-    public function deleted(Notification $notification)
+    public function deleted(Notification $notification): void
     {
         NotificationService::del($notification->profile_id, $notification->id);
     }
 
     /**
      * Handle the notification "restored" event.
-     *
-     * @param  \App\Notification  $notification
-     * @return void
      */
-    public function restored(Notification $notification)
+    public function restored(Notification $notification): void
     {
         NotificationService::set($notification->profile_id, $notification->id);
     }
 
     /**
      * Handle the notification "force deleted" event.
-     *
-     * @param  \App\Notification  $notification
-     * @return void
      */
-    public function forceDeleted(Notification $notification)
+    public function forceDeleted(Notification $notification): void
     {
         NotificationService::del($notification->profile_id, $notification->id);
     }

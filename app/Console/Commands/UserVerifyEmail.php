@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use App\User;
+use Illuminate\Console\Command;
 
 class UserVerifyEmail extends Command
 {
@@ -37,17 +36,18 @@ class UserVerifyEmail extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $user = User::whereUsername($this->argument('username'))->first();
 
-        if(!$user) {
+        if (! $user) {
             $this->error('Username not found');
+
             return;
         }
 
         $user->email_verified_at = now();
         $user->save();
-        $this->info('Successfully verified email address for ' . $user->username);
+        $this->info('Successfully verified email address for '.$user->username);
     }
 }

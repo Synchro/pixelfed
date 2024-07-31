@@ -62,10 +62,8 @@ class StatusDelete implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $status = $this->status;
         $profile = $this->status->profile;
@@ -104,7 +102,7 @@ class StatusDelete implements ShouldQueue
 
         Bookmark::whereStatusId($status->id)->delete();
 
-        CollectionItem::whereObjectType('App\Status')
+        CollectionItem::whereObjectType(\App\Status::class)
             ->whereObjectId($status->id)
             ->get()
             ->each(function ($col) {
@@ -114,7 +112,7 @@ class StatusDelete implements ShouldQueue
 
         $dms = DirectMessage::whereStatusId($status->id)->get();
         foreach ($dms as $dm) {
-            $not = Notification::whereItemType('App\DirectMessage')
+            $not = Notification::whereItemType(\App\DirectMessage::class)
                 ->whereItemId($dm->id)
                 ->first();
             if ($not) {
@@ -127,7 +125,7 @@ class StatusDelete implements ShouldQueue
 
         $mediaTags = MediaTag::where('status_id', $status->id)->get();
         foreach ($mediaTags as $mtag) {
-            $not = Notification::whereItemType('App\MediaTag')
+            $not = Notification::whereItemType(\App\MediaTag::class)
                 ->whereItemId($mtag->id)
                 ->first();
             if ($not) {
@@ -138,11 +136,11 @@ class StatusDelete implements ShouldQueue
         }
         Mention::whereStatusId($status->id)->forceDelete();
 
-        Notification::whereItemType('App\Status')
+        Notification::whereItemType(\App\Status::class)
             ->whereItemId($status->id)
             ->forceDelete();
 
-        Report::whereObjectType('App\Status')
+        Report::whereObjectType(\App\Status::class)
             ->whereObjectId($status->id)
             ->delete();
 
@@ -151,7 +149,7 @@ class StatusDelete implements ShouldQueue
         StatusView::whereStatusId($status->id)->delete();
         Status::whereInReplyToId($status->id)->update(['in_reply_to_id' => null]);
 
-        AccountInterstitial::where('item_type', 'App\Status')
+        AccountInterstitial::where('item_type', \App\Status::class)
             ->where('item_id', $status->id)
             ->delete();
 

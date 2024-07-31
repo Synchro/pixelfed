@@ -1,26 +1,24 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class AddAccountStatusToProfilesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         // Drop old columns, fix stories
-        if(Schema::hasColumn('profiles', 'hub_url')) {
+        if (Schema::hasColumn('profiles', 'hub_url')) {
             Schema::table('profiles', function (Blueprint $table) {
-                $table->dropColumn(['verify_token','secret','salmon_url','hub_url']);
+                $table->dropColumn(['verify_token', 'secret', 'salmon_url', 'hub_url']);
             });
         }
 
-        if(Schema::hasColumn('stories', 'bigIncrements')) {
+        if (Schema::hasColumn('stories', 'bigIncrements')) {
             Schema::table('stories', function (Blueprint $table) {
                 $table->dropColumn('bigIncrements');
             });
@@ -42,10 +40,8 @@ class AddAccountStatusToProfilesTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('profiles', function (Blueprint $table) {
             $table->string('verify_token')->nullable();
@@ -71,4 +67,4 @@ class AddAccountStatusToProfilesTable extends Migration
             $table->dropColumn('status');
         });
     }
-}
+};

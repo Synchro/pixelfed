@@ -3,14 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AccountLog extends Model
 {
+    protected $fillable = ['*'];
 
-	protected $fillable = ['*'];
-	
-    public function user()
+    public function user(): BelongsTo
     {
-    	return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 }

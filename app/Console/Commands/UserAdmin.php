@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
-use App\User;
 
 class UserAdmin extends Command implements PromptsForMissingInput
 {
@@ -39,25 +39,25 @@ class UserAdmin extends Command implements PromptsForMissingInput
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $id = $this->argument('username');
 
         $user = User::whereUsername($id)->first();
 
-        if(!$user) {
+        if (! $user) {
             $this->error('Could not find any user with that username or id.');
             exit;
         }
 
-        $this->info('Found username: ' . $user->username);
+        $this->info('Found username: '.$user->username);
         $state = $user->is_admin ? 'Remove admin privileges from this user?' : 'Add admin privileges to this user?';
         $confirmed = $this->confirm($state);
-        if(!$confirmed) {
+        if (! $confirmed) {
             exit;
         }
 
-        $user->is_admin = !$user->is_admin;
+        $user->is_admin = ! $user->is_admin;
         $user->save();
         $this->info('Successfully changed permissions!');
     }
