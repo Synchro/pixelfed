@@ -138,7 +138,7 @@ class InstallController extends Controller
         $this->updateConfig('DB_USERNAME=pixelfed', 'DB_USERNAME='.$request->input('db_username'));
         $this->updateConfig('DB_PASSWORD=pixelfed', 'DB_PASSWORD='.$request->input('db_password'));
 
-        $this->updateConfig('CACHE_DRIVER=redis', 'CACHE_DRIVER='.$request->input('cache_driver'));
+        $this->updateConfig('CACHE_STORE=redis', 'CACHE_STORE='.$request->input('cache_driver'));
         $this->updateConfig('QUEUE_DRIVER=redis', 'QUEUE_DRIVER='.$request->input('queue_driver'));
         $this->updateConfig('REDIS_SCHEME=tcp', 'REDIS_SCHEME='.$request->input('redis_scheme'));
         $this->updateConfig('REDIS_HOST=127.0.0.1', 'REDIS_HOST='.$request->input('redis_host'));

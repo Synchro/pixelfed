@@ -237,13 +237,13 @@
 
 	<tr>
 		<td><span class="badge badge-primary">BROADCASTING</span></td>
-		<td><strong>BROADCAST_DRIVER</strong></td>
+		<td><strong>BROADCAST_CONNECTION</strong></td>
 		<td><span>"{{config_cache('broadcasting.default')}}"</span></td>
 	</tr>
 
 	<tr>
 		<td><span class="badge badge-primary">CACHE</span></td>
-		<td><strong>CACHE_DRIVER</strong></td>
+		<td><strong>CACHE_STORE</strong></td>
 		<td><span>"{{config_cache('cache.default')}}"</span></td>
 	</tr>
 

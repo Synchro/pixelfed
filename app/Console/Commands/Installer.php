@@ -328,9 +328,9 @@ class Installer extends Command
         $horizon = $this->ask('Set Horizon Prefix [ex: horizon-]', 'horizon-');
 
         $this->updateEnvFile('SESSION_DRIVER', $session);
-        $this->updateEnvFile('CACHE_DRIVER', $cache);
+        $this->updateEnvFile('CACHE_STORE', $cache);
         $this->updateEnvFile('QUEUE_DRIVER', $queue);
-        $this->updateEnvFile('BROADCAST_DRIVER', $broadcast);
+        $this->updateEnvFile('BROADCAST_CONNECTION', $broadcast);
         $this->updateEnvFile('LOG_CHANNEL', $log);
         $this->updateEnvFile('HORIZON_PREFIX', $horizon);
     }
